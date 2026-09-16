@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { Menu, X } from "lucide-react";
+import logoImg from "../../../public/images/logo.png";
 
 const navLinks = [
   { name: "Products", href: "/products" },
@@ -23,7 +24,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/images/logo.png"
+              src={logoImg}
               alt={siteConfig.name}
               width={200}
               height={56}
