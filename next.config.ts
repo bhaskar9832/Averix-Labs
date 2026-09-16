@@ -17,8 +17,9 @@ const nextConfig: NextConfig = {
 
 if (isExport) {
   nextConfig.output = "export";
-  nextConfig.basePath = "/Averix-Labs";
-  nextConfig.assetPrefix = "/Averix-Labs/";
+  // Base path removed because the site will now be hosted at the root of the custom domain (averixlabs.in)
+  // nextConfig.basePath = "/Averix-Labs";
+  // nextConfig.assetPrefix = "/Averix-Labs/";
 }
 
 export default nextConfig;
