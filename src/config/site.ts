@@ -2,13 +2,13 @@ export const siteConfig = {
   name: "Averix Labs",
   description: "Digital products that connect strong engineering with a clear reason to exist.",
   url: "https://averixlabs.com",
-  email: "souravsarkar25787@gmail.com",
+  email: "averixlabs001@gmail.com",
   phone: "9832560193",
   whatsapp: "9832560193",
   address: "India",
   links: {
     twitter: "https://twitter.com",
-    github: "https://github.com",
+    github: "https://github.com/averixlabs001",
     linkedin: "https://linkedin.com",
   },
   team: [
@@ -16,13 +16,15 @@ export const siteConfig = {
       name: "Sourav Sarkar",
       role: "Backend, AI, and full-stack engineering",
       description: "Python services, APIs, React applications, databases, and AI-assisted tools. Projects show document intelligence, marketplace flows, and operations software.",
-      image: "/images/sourav.png"
+      image: "/images/sourav.png",
+      github: "https://github.com/sourav03561"
     },
     {
       name: "Bhaskar Sarkar",
       role: "Full-stack and backend engineering",
       description: "React, Node.js, Java, and Spring Boot. Repositories include RentEasy and AI-Tution builds, plus VibeMusic, a context-aware music recommendation prototype.",
-      image: "/images/bhaskar.png"
+      image: "/images/bhaskar.png",
+      github: "https://github.com/bhaskar9832"
     }
   ]
 }

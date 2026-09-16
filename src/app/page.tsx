@@ -270,7 +270,7 @@ export default function Home() {
                     {member.description}
                   </p>
                   <div>
-                    <a href="#" className="text-sm font-bold text-[#4f46e5] hover:text-white underline underline-offset-4 transition-colors">
+                    <a href={member.github} target="_blank" rel="noreferrer" className="text-sm font-bold text-[#4f46e5] hover:text-white underline underline-offset-4 transition-colors">
                       GitHub profile
                     </a>
                   </div>
@@ -317,10 +317,10 @@ export default function Home() {
               </div>
 
               <div className="flex gap-8">
-                 <a href={siteConfig.links.github} className="text-sm font-bold text-white hover:text-[#4f46e5] underline underline-offset-4 transition-colors">
+                 <a href={siteConfig.team[0].github} target="_blank" rel="noreferrer" className="text-sm font-bold text-white hover:text-[#4f46e5] underline underline-offset-4 transition-colors">
                    Sourav on GitHub
                  </a>
-                 <a href={siteConfig.links.github} className="text-sm font-bold text-white hover:text-[#4f46e5] underline underline-offset-4 transition-colors">
+                 <a href={siteConfig.team[1].github} target="_blank" rel="noreferrer" className="text-sm font-bold text-white hover:text-[#4f46e5] underline underline-offset-4 transition-colors">
                    Bhaskar on GitHub
                  </a>
               </div>
