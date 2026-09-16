@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "export",
@@ -8,9 +10,9 @@ const nextConfig: NextConfig = {
   },
   compress: true,
   experimental: {},
-  // Optional: If you are not using a custom domain and your GitHub repo is named "Averix-Labs",
-  // you might need to uncomment the following line to make assets load correctly on GitHub Pages:
-  // basePath: "/Averix-Labs",
+  // GitHub Pages usually deploys to /repository-name/ unless you use a custom domain.
+  basePath: isProd ? "/Averix-Labs" : "",
+  assetPrefix: isProd ? "/Averix-Labs/" : "",
 };
 
 export default nextConfig;
