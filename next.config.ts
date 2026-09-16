@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
 if (isExport) {
   nextConfig.output = "export";
   nextConfig.basePath = "/Averix-Labs";
-  nextConfig.assetPrefix = "/Averix-Labs/";
+  nextConfig.assetPrefix = "/Averix-Labs";
 }
 
 export default nextConfig;
