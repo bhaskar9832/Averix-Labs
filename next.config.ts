@@ -2,18 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-
-  // Optimize images — AVIF/WebP for better performance
+  output: "export",
   images: {
-    formats: ["image/avif", "image/webp"],
-    remotePatterns: [],
+    unoptimized: true,
   },
-
   compress: true,
-
-  // Turbopack: set root so it can find package-lock.json
-  // (needed because workspace folder name has spaces)
   experimental: {},
+  // Optional: If you are not using a custom domain and your GitHub repo is named "Averix-Labs",
+  // you might need to uncomment the following line to make assets load correctly on GitHub Pages:
+  // basePath: "/Averix-Labs",
 };
 
 export default nextConfig;
