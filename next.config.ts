@@ -1,18 +1,25 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === 'production';
+const isGithubActions = process.env.GITHUB_ACTIONS || false;
+// When deploying to GitHub Pages, we want static export
+const isExport = process.env.BUILD_TARGET === 'export';
 
-const nextConfig: NextConfig = {
+let nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: "export",
   images: {
-    unoptimized: true,
+    // We only need unoptimized images if doing static export
+    unoptimized: isExport ? true : false,
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [],
   },
   compress: true,
   experimental: {},
-  // GitHub Pages usually deploys to /repository-name/ unless you use a custom domain.
-  basePath: isProd ? "/Averix-Labs" : "",
-  assetPrefix: isProd ? "/Averix-Labs/" : "",
 };
+
+if (isExport) {
+  nextConfig.output = "export";
+  nextConfig.basePath = "/Averix-Labs";
+  nextConfig.assetPrefix = "/Averix-Labs/";
+}
 
 export default nextConfig;
