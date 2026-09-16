@@ -1,11 +1,11 @@
 export const siteConfig = {
   name: "Averix Labs",
-  description: "We design and develop scalable websites, mobile applications, SaaS platforms, and custom software solutions for businesses and startups.",
-  url: "https://averixlabs.com", // Replace with actual URL
-  email: "averixlabs001@gmail.com",
+  description: "Digital products that connect strong engineering with a clear reason to exist.",
+  url: "https://averixlabs.com",
+  email: "souravsarkar25787@gmail.com",
   phone: "9832560193",
   whatsapp: "9832560193",
-  address: "Jalpaiguri, West Bengal, PIN 735101",
+  address: "India",
   links: {
     twitter: "https://twitter.com",
     github: "https://github.com",
@@ -13,14 +13,16 @@ export const siteConfig = {
   },
   team: [
     {
-      name: "Bhaskar Sarkar",
-      role: "Developer",
-      image: "/images/bhaskar.png"
+      name: "Sourav Sarkar",
+      role: "Backend, AI, and full-stack engineering",
+      description: "Python services, APIs, React applications, databases, and AI-assisted tools. Projects show document intelligence, marketplace flows, and operations software.",
+      image: "/images/sourav.png"
     },
     {
-      name: "Sourav Sarkar",
-      role: "Developer",
-      image: "/images/sourav.png"
+      name: "Bhaskar Sarkar",
+      role: "Full-stack and backend engineering",
+      description: "React, Node.js, Java, and Spring Boot. Repositories include RentEasy and AI-Tution builds, plus VibeMusic, a context-aware music recommendation prototype.",
+      image: "/images/bhaskar.png"
     }
   ]
 }

@@ -25,9 +25,9 @@ export function Navbar() {
             <Image
               src="/images/logo.png"
               alt={siteConfig.name}
-              width={130}
-              height={36}
-              className="h-9 w-auto brightness-0 invert"
+              width={200}
+              height={56}
+              className="h-14 w-auto brightness-0 invert"
               priority
             />
           </Link>
