@@ -1,10 +1,9 @@
 import type { NextConfig } from "next";
 
-const isGithubActions = process.env.GITHUB_ACTIONS || false;
 // When deploying to GitHub Pages, we want static export
 const isExport = process.env.BUILD_TARGET === 'export';
 
-let nextConfig: NextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   images: {
     // We only need unoptimized images if doing static export
