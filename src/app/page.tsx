@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen pt-20 overflow-x-hidden selection:bg-[#4f46e5] selection:text-white bg-[#050505]">
       {/* ─── HERO ─── */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden flex flex-col px-4 border-b border-[#262626]">
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden flex flex-col px-6 md:px-12 lg:px-20 border-b border-[#262626]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_right_center,_var(--tw-gradient-stops))] from-[#1e1b4b]/20 via-[#050505] to-[#050505] -z-10"></div>
         {/* Abstract circular design on right */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/3 opacity-20 pointer-events-none hidden lg:block">
@@ -39,7 +39,7 @@ export default function Home() {
       </section>
 
       {/* ─── WHO WE ARE ─── */}
-      <section className="py-24 border-b border-[#262626] px-4 bg-[#0a0a0a]">
+      <section className="py-24 border-b border-[#262626] px-6 md:px-12 lg:px-20 bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">01 / WHO WE ARE</div>
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 font-serif">
@@ -95,7 +95,7 @@ export default function Home() {
       </section>
 
       {/* ─── SERVICES ─── */}
-      <section className="py-24 bg-[#050505] border-b border-[#262626] px-4">
+      <section className="py-24 bg-[#050505] border-b border-[#262626] px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">02 / SERVICES</div>
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
@@ -130,7 +130,7 @@ export default function Home() {
       </section>
 
       {/* ─── ENGINEERING ─── */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#262626] px-4">
+      <section className="py-24 bg-[#0a0a0a] border-b border-[#262626] px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
            <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">03 / ENGINEERING</div>
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
@@ -168,7 +168,7 @@ export default function Home() {
       </section>
 
       {/* ─── PORTFOLIO ─── */}
-      <section className="py-24 bg-[#050505] border-b border-[#262626] px-4">
+      <section className="py-24 bg-[#050505] border-b border-[#262626] px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">04 / PORTFOLIO</div>
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
@@ -203,7 +203,7 @@ export default function Home() {
       </section>
 
       {/* ─── ENGAGEMENT MODEL ─── */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#262626] px-4">
+      <section className="py-24 bg-[#0a0a0a] border-b border-[#262626] px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">10 / ENGAGEMENT MODEL</div>
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
@@ -241,7 +241,7 @@ export default function Home() {
       </section>
 
       {/* ─── TEAM ─── */}
-      <section id="about" className="py-24 bg-[#050505] border-b border-[#262626] px-4">
+      <section id="about" className="py-24 bg-[#050505] border-b border-[#262626] px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">11 / TEAM</div>
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
@@ -288,7 +288,7 @@ export default function Home() {
       </section>
 
       {/* ─── CONTACT ─── */}
-      <section id="contact" className="py-24 bg-[#0a0a0a] border-b border-[#262626] px-4">
+      <section id="contact" className="py-24 bg-[#0a0a0a] border-b border-[#262626] px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-start">
             <div>
