@@ -1,7 +1,7 @@
 export type Product = {
   slug: string;
   name: string;
-  status: 'Active' | 'Beta' | 'In Development' | 'Coming Soon' | 'Archived';
+  status: 'Active' | 'Beta' | 'In Development' | 'Coming Soon' | 'Archived' | 'Under Deployment';
   category: string;
   description: string;
   problem: string;
@@ -78,7 +78,7 @@ export const products: Product[] = [
   {
     slug: 'gasflow',
     name: 'GasFlow',
-    status: 'In Development',
+    status: 'Active',
     category: 'Operations Software',
     description: 'A working LPG distribution workspace that connects stock, customers, invoices, and money.',
     problem: 'Distribution teams struggle to track what was supplied, what came back, customer debts, and live stock levels across disjointed tools.',
@@ -98,7 +98,7 @@ export const products: Product[] = [
   {
     slug: 'imme',
     name: 'imME',
-    status: 'Coming Soon',
+    status: 'Active',
     category: 'Mobile Product',
     description: 'A mobile self-coaching experience centered on reflection, life zones, activity logs, and insight.',
     problem: 'People struggle to maintain structured personal reflection without overwhelming and bloated tracking apps.',
@@ -118,7 +118,7 @@ export const products: Product[] = [
   {
     slug: 'mybuddy',
     name: 'MyBuddy',
-    status: 'Active',
+    status: 'Under Deployment',
     category: 'Intelligent Automation',
     description: 'An intelligent automation platform that simplifies your monthly routine tasks from utility bills to service bookings.',
     problem: 'Managing recurring monthly tasks, utility bills, and service bookings is repetitive, time-consuming, and prone to missed deadlines.',
