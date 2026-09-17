@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { submitProjectInquiry } from "@/lib/supabase";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,12 +22,28 @@ export function ContactForm() {
     };
 
     try {
-      await submitProjectInquiry(data);
+      const response = await fetch("https://formsubmit.co/ajax/averixlabs001@gmail.com", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            ...data,
+            _subject: `New Project Inquiry from ${data.name}`,
+            _template: "table"
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
       setIsSuccess(true);
       form.reset();
     } catch (err) {
       console.error(err);
-      setError("Something went wrong. Please try again or contact us directly.");
+      setError("Something went wrong. Please try again or contact us directly at averixlabs001@gmail.com.");
     } finally {
       setIsSubmitting(false);
     }
