@@ -31,7 +31,9 @@ export default function ProductsPage() {
                       src={product.interfaceImage} 
                       alt={product.name} 
                       fill 
-                      className="object-cover group-hover:scale-105 transition-transform duration-700" 
+                      quality={100}
+                      className="object-cover group-hover:scale-105 transition-all duration-700 contrast-[1.03] saturate-[1.05] brightness-[1.02]" 
+                      style={{ imageRendering: 'crisp-edges' }}
                     />
                   ) : (
                     <div className="text-[#4f46e5] font-mono text-sm opacity-50">{product.slug.toUpperCase()}</div>

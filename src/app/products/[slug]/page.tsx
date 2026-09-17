@@ -56,7 +56,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 alt={`${product.name} Interface`} 
                 width={1920}
                 height={1080}
-                className="w-full h-auto object-cover"
+                quality={100}
+                className="w-full h-auto object-cover shadow-2xl contrast-[1.03] saturate-[1.05] brightness-[1.02]"
+                style={{ imageRendering: 'crisp-edges' }}
                 priority
               />
             ) : (
