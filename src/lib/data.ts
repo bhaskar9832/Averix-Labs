@@ -114,6 +114,26 @@ export const products: Product[] = [
     philosophy: 'Self-coaching should be frictionless, providing clarity rather than adding cognitive load.',
     ctaText: 'View Design Work',
     interfaceImage: '/images/projects/imme.png'
+  },
+  {
+    slug: 'mybuddy',
+    name: 'MyBuddy',
+    status: 'Active',
+    category: 'Intelligent Automation',
+    description: 'An intelligent automation platform that simplifies your monthly routine tasks from utility bills to service bookings.',
+    problem: 'Managing recurring monthly tasks, utility bills, and service bookings is repetitive, time-consuming, and prone to missed deadlines.',
+    solution: 'A production-grade microservices platform that automates recurring tasks, handles smart autopay, and provides deep analytics on spending.',
+    features: ['Automatic Bill Payments', 'Recurring Service Bookings', 'Smart Autopay', 'Real-time Notifications', 'Analytics Dashboard'],
+    detailedFeatures: [
+      { title: 'Production-Grade Microservices', description: 'Built on a robust architecture using Node.js, Express, Docker, and Kubernetes with dedicated services for users, billing, payments, bookings, and notifications.' },
+      { title: 'Smart Billing & Auto Booking', description: 'Automatically fetch and pay utility bills on schedule, and set up recurring service bookings without manual intervention.' },
+      { title: 'Deep Analytics & Monitoring', description: 'Track all transactions with an analytics dashboard, supported by Prometheus, Grafana, and the ELK stack for system observability.' },
+      { title: 'Secure Architecture', description: 'Implements JWT authentication, rate limiting, secure API gateways, RabbitMQ message queues, and Redis caching.' }
+    ],
+    technology: ['React 18', 'Node.js Microservices', 'PostgreSQL & MongoDB', 'Docker & Kubernetes', 'RabbitMQ & Redis'],
+    philosophy: 'Automate your monthly tasks with a single click so you can focus on what matters.',
+    ctaText: 'View GitHub Repository',
+    interfaceImage: '/images/projects/mybuddy.png'
   }
 ];
 
