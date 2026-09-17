@@ -84,9 +84,16 @@ export const products: Product[] = [
     problem: 'Distribution teams struggle to track what was supplied, what came back, customer debts, and live stock levels across disjointed tools.',
     solution: 'Puts operational records into one connected workflow, modeling real inventory and financial states in a daily-use interface.',
     features: ['Customer and supplier records', 'Inventory and cylinder allocations', 'Purchases, sales, and returns', 'Payments, ledgers, and reports'],
+    detailedFeatures: [
+      { title: 'Connected Workflow', description: 'A seamless pipeline connecting Customer accounts, Stock (Cylinders), Sales (GST Invoices), Collections, and Control (Ledgers).' },
+      { title: 'Implementation Evidence', description: 'Built with a React interface, Node/Express server, PostgreSQL tables/migrations, and transaction-level tests for core flows.' },
+      { title: 'Operations Dashboard', description: 'A daily-use interface providing an overview of sales, payments, cylinder movement, and live stock tracking.' },
+      { title: 'Client Value', description: 'Demonstrates the ability to model real inventory and financial states, making complex operations visible and manageable.' }
+    ],
     technology: ['React interface', 'Node / Express server', 'PostgreSQL', 'Transaction-level tests'],
     philosophy: 'Model real operations clearly so the business never loses track of its physical assets.',
-    ctaText: 'View Public Workspace'
+    ctaText: 'View Public Workspace',
+    interfaceImage: '/images/projects/gasflow.png'
   },
   {
     slug: 'imme',
@@ -97,9 +104,16 @@ export const products: Product[] = [
     problem: 'People struggle to maintain structured personal reflection without overwhelming and bloated tracking apps.',
     solution: 'A Recognize, Address, Maintain journey where users set up a profile, check in, organize life into zones, and review progress.',
     features: ['Language and onboarding flows', 'Dashboard and zone views', 'Guided activity capture', 'Personal insights and settings'],
+    detailedFeatures: [
+      { title: '01 / Frame', description: 'Clarify the goal, users, constraints, and success criteria to deliver a concrete problem brief and first scope.' },
+      { title: '02 / Shape', description: 'Map workflows, information architecture, and the first useful release to establish flows and interface direction.' },
+      { title: '03 / Build', description: 'Implement the UI, application logic, integrations, and data model through continuous working increments.' },
+      { title: '04 & 05 / Validate & Handoff', description: 'Review key paths with real examples, document setup decisions, and deliver a usable product with a clear roadmap.' }
+    ],
     technology: ['Mobile-first product structure', 'React Native / Expo', 'Provider-neutral entitlement model'],
     philosophy: 'Self-coaching should be frictionless, providing clarity rather than adding cognitive load.',
-    ctaText: 'View Design Work'
+    ctaText: 'View Design Work',
+    interfaceImage: '/images/projects/imme.png'
   }
 ];
 
