@@ -4,7 +4,7 @@ import bhaskarImg from "../../public/images/bhaskar.png";
 export const siteConfig = {
   name: "Averix Labs",
   description: "Digital products that connect strong engineering with a clear reason to exist.",
-  url: "https://averixlabs.com",
+  url: "https://averixlabs.in",
   email: "averixlabs001@gmail.com",
   phone: "9832560193",
   whatsapp: "9832560193",
