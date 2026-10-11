@@ -73,11 +73,6 @@ export default function AboutPage() {
                   <p className="text-[#94a3b8] text-lg leading-relaxed mb-8 max-w-3xl">
                     {member.description}
                   </p>
-                  <div>
-                    <a href={member.github} target="_blank" rel="noreferrer" className="text-sm font-bold text-[#4f46e5] hover:text-white underline underline-offset-4 transition-colors">
-                      GitHub profile
-                    </a>
-                  </div>
                 </div>
               </div>
             ))}

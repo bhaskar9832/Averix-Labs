@@ -17,17 +17,15 @@ export const siteConfig = {
   team: [
     {
       name: "Sourav Sarkar",
-      role: "Backend, AI, and full-stack engineering",
-      description: "Python services, APIs, React applications, databases, and AI-assisted tools. Projects show document intelligence, marketplace flows, and operations software.",
+      role: "Senior Backend Engineer",
+      description: "Python services, APIs, React applications, databases, and AI-assisted tools.",
       image: souravImg,
-      github: "https://github.com/sourav03561"
     },
     {
       name: "Bhaskar Sarkar",
-      role: "Full-stack and backend engineering",
-      description: "React, Node.js, Java, and Spring Boot. Repositories include RentEasy and AI-Tution builds, plus VibeMusic, a context-aware music recommendation prototype.",
+      role: "Backend Engineer",
+      description: "React, Node.js, Java, and Spring Boot.",
       image: bhaskarImg,
-      github: "https://github.com/bhaskar9832"
     }
   ]
 }
