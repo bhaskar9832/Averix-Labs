@@ -11,6 +11,10 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
+  applicationName: siteConfig.name,
+  robots: { index: true, follow: true },
+  ...(process.env.GOOGLE_SITE_VERIFICATION ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } } : {}),
 };
 
 export default function RootLayout({
@@ -19,8 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} min-h-screen bg-[#050505] text-[#f8fafc]`}>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `(() => { let theme; try { theme = localStorage.getItem('averix-theme'); } catch {} if (theme !== 'light' && theme !== 'dark') { theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } document.documentElement.dataset.theme = theme; })();` }} />
+      </head>
+      <body className={`${inter.className} min-h-screen bg-background text-foreground`}>
         {children}
       </body>
     </html>

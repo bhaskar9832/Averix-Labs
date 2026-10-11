@@ -22,17 +22,10 @@ export function ContactForm() {
     };
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/averixlabs001@gmail.com", {
+      const response = await fetch(process.env.NEXT_PUBLIC_INQUIRY_API_URL || "/api/inquiries", {
         method: "POST",
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            ...data,
-            _subject: `New Project Inquiry from ${data.name}`,
-            _template: "table"
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -50,14 +43,14 @@ export function ContactForm() {
   };
 
   const inputClass =
-    "w-full px-4 py-3 rounded-lg border border-[#262626] bg-[#121212] text-[#f8fafc] placeholder-[#64748b] focus:border-[#4f46e5] focus:ring-1 focus:ring-[#4f46e5] outline-none transition-all text-sm";
-  const labelClass = "block text-xs font-medium text-[#94a3b8] mb-2 uppercase tracking-wider";
+    "w-full px-4 py-3 rounded-lg border border-border bg-secondary text-foreground placeholder-muted-foreground focus:border-[#4f46e5] focus:ring-1 focus:ring-[#4f46e5] outline-none transition-all text-sm";
+  const labelClass = "block text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider";
 
   if (isSuccess) {
     return (
-      <div className="bg-[#121212] border border-[#262626] text-[#f8fafc] p-8 rounded-xl text-center">
-        <h3 className="text-xl font-bold mb-2">Message sent successfully.</h3>
-        <p className="text-[#94a3b8] text-sm">
+      <div className="bg-secondary border border-border text-foreground p-8 rounded-xl text-center">
+        <h3 className="text-xl font-bold mb-2">Message received successfully.</h3>
+        <p className="text-muted-foreground text-sm">
           We&apos;ll get back to you shortly.
         </p>
       </div>
@@ -65,7 +58,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-[#0a0a0a] border border-[#262626] rounded-xl p-8 space-y-6">
+    <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 space-y-6">
       {error && (
         <div className="bg-red-900/20 border border-red-500/50 text-red-400 text-sm p-4 rounded-lg">
           {error}
@@ -75,18 +68,18 @@ export function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="name" className={labelClass}>Name *</label>
-          <input required type="text" id="name" name="name" className={inputClass} placeholder="Jane Doe" />
+          <input required type="text" id="name" name="name" className={inputClass} maxLength={200} placeholder="Jane Doe" />
         </div>
         <div>
           <label htmlFor="email" className={labelClass}>Email *</label>
-          <input required type="email" id="email" name="email" className={inputClass} placeholder="jane@example.com" />
+          <input required type="email" id="email" name="email" className={inputClass} maxLength={254} placeholder="jane@example.com" />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="company" className={labelClass}>Company</label>
-          <input type="text" id="company" name="company" className={inputClass} placeholder="Optional" />
+          <input type="text" id="company" name="company" className={inputClass} maxLength={200} placeholder="Optional" />
         </div>
         <div>
           <label htmlFor="project_type" className={labelClass}>Project Type *</label>
@@ -110,6 +103,7 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={4}
+          maxLength={10000}
           className={inputClass}
           placeholder="Tell us about your project..."
         />
