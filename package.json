@@ -7,7 +7,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "db:setup": "node scripts/setup-database.mjs"
+    "db:setup": "node scripts/setup-database.mjs",
+    "build:pages": "node scripts/build-pages.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

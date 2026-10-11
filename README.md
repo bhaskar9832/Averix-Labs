@@ -73,10 +73,10 @@ Follow these instructions to set up the project locally.
    and indexes without deleting existing data. Existing Supabase records are
    not copied automatically.
 
-   Deploy on a host supporting the Next.js Node.js runtime (for example, Vercel
-   or a Node.js server). Set the same database variables there; `DATABASE_CA_CERT`
-   accepts PEM text with actual newlines or escaped `\n`. GitHub Pages cannot run
-   the `/api/inquiries` endpoint. The current Pages workflow does not deploy a backend.
+   Run the backend on a server supporting the Next.js Node.js runtime. Set the
+   database variables there; `DATABASE_CA_CERT` accepts PEM text with actual
+   newlines or escaped `\n`. The frontend can be deployed separately to GitHub
+   Pages as described below.
    Form submissions are stored in the database; email notifications are not configured.
 
 4. **Run the development server**
@@ -117,7 +117,8 @@ Use `https://averixlabs.in` as the primary URL (or set `NEXT_PUBLIC_SITE_URL`
 consistently before building). Page canonicals, sitemap entries and business
 structured data share that setting. Deploy on a Next.js server host so inquiries
 reach Aiven, and redirect any other domain to the primary domain in your hosting
-settings.
+settings. The frontend can also be exported to GitHub Pages, with a separate
+backend server for Aiven.
 
 Verify domain ownership in [Google Search Console](https://search.google.com/search-console).
 If using HTML verification, set `GOOGLE_SITE_VERIFICATION` to the verification
@@ -135,3 +136,44 @@ street addresses. Continue adding useful project writeups as work is delivered.
 SEO changes help discovery but do not guarantee rankings.
 
 Guidance: [Google's SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide).
+
+## GitHub Pages frontend + existing backend server
+
+GitHub Pages hosts the static website. A separate HTTPS backend receives contact
+form requests and connects to Aiven. GitHub Actions secrets are available to
+workflows, not to the running Pages website.
+
+Repository **Actions secrets**:
+
+- `DATABASE_URL`: Aiven PostgreSQL connection URL, including credentials.
+- `DATABASE_CA_CERT`: complete Aiven CA certificate in PEM format.
+
+Repository **Actions variables**:
+
+- `NEXT_PUBLIC_SITE_URL`: `https://averixlabs.in`.
+- `NEXT_PUBLIC_INQUIRY_API_URL`: the real HTTPS inquiry endpoint on your backend,
+  such as `https://YOUR_BACKEND_DOMAIN/api/inquiries`. This URL is public.
+- `GOOGLE_SITE_VERIFICATION`: optional Search Console verification code.
+
+The Pages workflow only builds the frontend and never receives the database
+secrets. `npm run build:pages` stages a clean frontend without API routes or local
+`.env` files, builds HTML into `out/`, and enables unoptimized images for static
+hosting. It requires a valid HTTPS `NEXT_PUBLIC_INQUIRY_API_URL`; a missing URL
+fails the build rather than publishing an unusable form. The workflow assumes
+the configured custom domain; set the repository Pages domain and DNS accordingly.
+
+On the backend server, install Node.js 22+, install dependencies with `npm ci`,
+and provide `DATABASE_URL`, `DATABASE_CA_CERT` and
+`INQUIRY_ALLOWED_ORIGINS=https://averixlabs.in` as private runtime environment
+variables. Build using `npm run build` with `BUILD_TARGET` unset, then run
+`npm start` under your server's process manager behind an HTTPS reverse proxy.
+Leave `NEXT_PUBLIC_INQUIRY_API_URL` unset on this backend build. The form endpoint
+is `/api/inquiries`; it accepts JSON POST requests and responds to CORS preflight
+requests only for configured origins and its own origin. To serve both the apex
+and www domains without a redirect, include both origins, separated by commas.
+
+The manually triggered **Set up Aiven inquiry table** workflow uses the two
+GitHub database secrets to create the table and indexes without deleting data.
+It does not deploy a server. SSH deployment credentials and automated backend
+deployment must be configured for the actual server before production use.
+Do not put database credentials into any `NEXT_PUBLIC_` variable or static asset.

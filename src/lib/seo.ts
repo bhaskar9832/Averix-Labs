@@ -10,8 +10,8 @@ export function pageMetadata(title: string, description: string, path: string): 
     openGraph: {
       type: 'website', url, title: `${title} | ${siteConfig.name}`,
       description, siteName: siteConfig.name, locale: 'en_IN',
-      images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Averix Labs — Custom software, web applications and AI development' }],
+      images: [{ url: '/images/social-preview.png', width: 1200, height: 630, alt: 'Averix Labs — Custom software, web applications and AI development' }],
     },
-    twitter: { card: 'summary_large_image', title: `${title} | ${siteConfig.name}`, description, images: ['/opengraph-image'] },
+    twitter: { card: 'summary_large_image', title: `${title} | ${siteConfig.name}`, description, images: ['/images/social-preview.png'] },
   };
 }
