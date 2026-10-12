@@ -1,10 +1,8 @@
-import postgres from 'postgres'
+import 'server-only';
+import { getSql } from './postgres-client.mjs';
 
-const connectionString = process.env.NEON_DATABASE_URL || process.env.DATABASE_URL || ''
-
-export const sql = postgres(connectionString, {
-  max: 10,
-  idle_timeout: 30,
-  connect_timeout: 30,
-  ssl: { rejectUnauthorized: false },
-})
+// Resolve configuration on first query, so builds do not need database access.
+export const sql = new Proxy(function () {} as unknown as ReturnType<typeof getSql>, {
+  apply(_target, thisArg, args) { return Reflect.apply(getSql(), thisArg, args); },
+  get(_target, property) { return Reflect.get(getSql(), property); },
+});

@@ -102,7 +102,7 @@ src/
 
 This branch saves inquiries in Aiven PostgreSQL through `/api/inquiries`.
 Set `DATABASE_URL` and `DATABASE_CA_CERT` in your server host's environment,
-and run `npm run db:setup` once to create the inquiry table and indexes.
+and run `npm run db:setup` to create the inquiry and CRM tables and indexes.
 Use `npm ci`, `npm run build`, and `npm start` for a full Next.js deployment
 on Render or another Node.js host. Leave `BUILD_TARGET` and
 `NEXT_PUBLIC_INQUIRY_API_URL` unset for this full application deployment.
@@ -143,3 +143,17 @@ street addresses. Continue adding useful project writeups as work is delivered.
 SEO changes help discovery but do not guarantee rankings.
 
 Guidance: [Google's SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide).
+
+## Contact storage consistency
+
+The CRM and public inquiry endpoint both use `DATABASE_URL` and the verified
+Aiven CA configuration. `NEON_DATABASE_URL` does not override this connection.
+The setup command applies all SQL files in `database/migrations/`, in order,
+inside one transaction. It creates the inquiry, leads, messages, admin users,
+products, activity logs and analytics session tables. It does not seed an admin
+account or delete existing data.
+
+Both contact entrypoints validate input and save a lead, its message and an
+inquiry history record in one transaction. If any insert fails, all three are
+rolled back. Optional Telegram notification happens only after a successful
+save through the contact server action.
