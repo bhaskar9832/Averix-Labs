@@ -105,11 +105,11 @@ export default function Home() {
                 Everything you need.<br />Under one roof.
               </h2>
               <p className="text-xl text-[#94a3b8] max-w-2xl">
-                From building your website to AI-optimizing your entire business — 15 services, one team, zero outsourcing.
+                From building your website to AI-optimizing your entire business — a team focused on practical software and clear delivery.
               </p>
             </div>
             <Link href="/services" className="shrink-0 bg-[#4f46e5] hover:bg-[#4338ca] text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm whitespace-nowrap">
-              See All 15 Services →
+              Explore Our Services →
             </Link>
           </div>
 
@@ -184,7 +184,7 @@ export default function Home() {
                 Real outcomes from real clients. No projections. No fluff.
               </p>
             </div>
-            <Link href="/results" className="shrink-0 bg-transparent border border-[#262626] hover:border-[#4f46e5]/50 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm whitespace-nowrap">
+            <Link href="/products" className="shrink-0 bg-transparent border border-[#262626] hover:border-[#4f46e5]/50 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm whitespace-nowrap">
               View Full Case Studies →
             </Link>
           </div>
@@ -214,7 +214,7 @@ export default function Home() {
             ].map((cs, i) => (
               <Link
                 key={i}
-                href="/results"
+                href="/products"
                 className="bg-[#0a0a0a] border border-[#262626] hover:border-[#4f46e5]/40 rounded-xl p-6 group transition-all duration-200"
               >
                 <div className={`text-xs font-bold ${cs.color} mb-3 uppercase tracking-wider`}>{cs.badge}</div>
@@ -284,7 +284,7 @@ export default function Home() {
                     {member.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   {member.image && (
-                    <Image src={member.image} alt={member.name} fill className="object-cover relative z-10" />
+                    <Image src={member.image} alt={member.name} sizes="(min-width: 768px) 160px, 128px" fill className="object-cover relative z-10" />
                   )}
                 </div>
                 <div className="flex flex-col justify-center">

@@ -9,6 +9,8 @@ import { Logo } from "@/components/admin/Logo";
 import { TopHeader } from "@/components/admin/TopHeader";
 import { sql } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminLayout({
   children,
 }: {

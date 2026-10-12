@@ -29,13 +29,13 @@ export function Navbar() {
               alt={siteConfig.name}
               width={200}
               height={56}
-              className="h-14 w-auto brightness-0 invert"
+              className="h-10 sm:h-14 w-auto brightness-0 invert"
               priority
             />
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex space-x-8 items-center">
+          <div className="hidden lg:flex space-x-8 items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -47,7 +47,7 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
              <Link
               href="/jira"
               className="bg-zinc-800/80 hover:bg-zinc-700 text-indigo-400 hover:text-indigo-300 border border-zinc-700/80 text-sm font-semibold px-4 py-2.5 rounded-lg transition-all flex items-center gap-2"
@@ -66,7 +66,7 @@ export function Navbar() {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-[#f8fafc] p-2"
+            className="lg:hidden text-[#f8fafc] p-2"
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -76,7 +76,7 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-[#0a0a0a] border-b border-[#262626] shadow-lg">
+        <div className="lg:hidden bg-[#0a0a0a] border-b border-[#262626] shadow-lg">
           <div className="px-4 pt-2 pb-4 space-y-1">
             {navLinks.map((link) => (
               <Link

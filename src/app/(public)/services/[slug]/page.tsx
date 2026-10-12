@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2, TrendingUp, ShieldCheck } from "lucide-react";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
