@@ -57,6 +57,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <Image 
                 src={product.interfaceImage} 
                 alt={`${product.name} Interface`} 
+                sizes="(min-width: 1024px) 1024px, 100vw"
                 width={1920}
                 height={1080}
                 quality={100}

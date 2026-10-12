@@ -30,7 +30,8 @@ export default function ProductsPage() {
                     <Image 
                       src={product.interfaceImage} 
                       alt={product.name} 
-                      fill 
+                      fill
+                      sizes="(min-width: 1280px) 560px, (min-width: 1024px) 50vw, 100vw"
                       quality={100}
                       className="object-cover group-hover:scale-105 transition-all duration-700 contrast-[1.03] saturate-[1.05] brightness-[1.02]" 
                       style={{ imageRendering: 'crisp-edges' }}

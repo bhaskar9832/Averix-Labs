@@ -284,7 +284,7 @@ export default function Home() {
                     {member.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   {member.image && (
-                    <Image src={member.image} alt={member.name} fill className="object-cover relative z-10" />
+                    <Image src={member.image} alt={member.name} sizes="(min-width: 768px) 160px, 128px" fill className="object-cover relative z-10" />
                   )}
                 </div>
                 <div className="flex flex-col justify-center">
