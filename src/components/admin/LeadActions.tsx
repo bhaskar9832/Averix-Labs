@@ -7,12 +7,12 @@ import { ChevronDown, Check } from 'lucide-react'
 const STATUSES = ['NEW', 'CONTACTED', 'QUALIFIED', 'PROPOSAL', 'WON', 'LOST']
 
 const STATUS_COLORS: Record<string, string> = {
-  NEW:        'text-indigo-400',
-  CONTACTED:  'text-blue-400',
-  QUALIFIED:  'text-amber-400',
-  PROPOSAL:   'text-purple-400',
-  WON:        'text-emerald-400',
-  LOST:       'text-red-400',
+  NEW:        'text-link',
+  CONTACTED:  'text-link',
+  QUALIFIED:  'text-warning',
+  PROPOSAL:   'text-link',
+  WON:        'text-success',
+  LOST:       'text-danger',
 }
 
 export function LeadActions({ leadId, currentStatus }: { leadId: string, currentStatus: string }) {
@@ -56,12 +56,12 @@ export function LeadActions({ leadId, currentStatus }: { leadId: string, current
         <button
           onClick={() => setOpen(!open)}
           disabled={loading}
-          className="bg-white/5 hover:bg-white/10 text-white/70 px-2 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1 disabled:opacity-50"
+          className="bg-foreground/5 hover:bg-foreground/10 text-foreground/70 px-2 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1 disabled:opacity-50"
         >
           {loading ? '...' : 'Status'} <ChevronDown className="w-3 h-3" />
         </button>
         {open && (
-          <div className="absolute left-0 top-full mt-1 bg-[#11131A] border border-white/10 rounded-lg overflow-hidden shadow-xl z-50 min-w-[120px]">
+          <div className="absolute left-0 top-full mt-1 bg-card border border-foreground/10 rounded-lg overflow-hidden shadow-xl z-50 min-w-[120px]">
             {STATUSES.map(s => (
               <button
                 key={s}
@@ -78,7 +78,7 @@ export function LeadActions({ leadId, currentStatus }: { leadId: string, current
       <button
         onClick={deleteLead}
         disabled={loading}
-        className="bg-red-500/10 hover:bg-red-500/20 text-red-400 px-2 py-1 rounded text-xs font-medium transition-colors disabled:opacity-50"
+        className="bg-red-500/10 hover:bg-red-500/20 text-danger px-2 py-1 rounded text-xs font-medium transition-colors disabled:opacity-50"
       >
         Delete
       </button>

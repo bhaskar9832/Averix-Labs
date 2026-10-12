@@ -67,81 +67,81 @@ export function ProjectSettingsView() {
   };
 
   return (
-    <div className="flex-1 p-8 overflow-y-auto bg-[#0a0b10]">
+    <div className="flex-1 p-8 overflow-y-auto bg-background">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
-        <div className="pb-6 border-b border-zinc-800">
-          <div className="flex items-center gap-2 text-xs text-zinc-400 mb-1">
+        <div className="pb-6 border-b border-border">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <span>{activeProject.name}</span>
             <span>/</span>
-            <span className="text-zinc-200 font-semibold">Settings</span>
+            <span className="text-foreground font-semibold">Settings</span>
           </div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-foreground tracking-tight flex items-center gap-2">
             <span>Project Settings & Configurations</span>
           </h1>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-muted-foreground mt-1">
             Configure key identifiers, project leads, access categories, or spin up new initiatives.
           </p>
         </div>
 
         {successMsg && (
-          <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 text-xs flex items-center gap-2">
+          <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-success text-xs flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
             <span>{successMsg}</span>
           </div>
         )}
 
         {/* Current Project Details */}
-        <div className="bg-[#12141e] border border-zinc-800/80 rounded-xl p-6 space-y-4">
-          <h2 className="text-base font-semibold text-white">Active Project Information</h2>
+        <div className="bg-secondary border border-border/80 rounded-xl p-6 space-y-4">
+          <h2 className="text-base font-semibold text-foreground">Active Project Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
             <div>
-              <label className="text-zinc-400 block mb-1">Project Name</label>
+              <label className="text-muted-foreground block mb-1">Project Name</label>
               <input
                 disabled
                 value={activeProject.name}
-                className="w-full bg-[#181a28] border border-zinc-800 rounded-lg px-3 py-2 text-zinc-300"
+                className="w-full bg-secondary border border-border rounded-lg px-3 py-2 text-muted-foreground"
               />
             </div>
             <div>
-              <label className="text-zinc-400 block mb-1">Project Key</label>
+              <label className="text-muted-foreground block mb-1">Project Key</label>
               <input
                 disabled
                 value={activeProject.key}
-                className="w-full bg-[#181a28] border border-zinc-800 rounded-lg px-3 py-2 text-zinc-300 font-mono"
+                className="w-full bg-secondary border border-border rounded-lg px-3 py-2 text-muted-foreground font-mono"
               />
             </div>
             <div>
-              <label className="text-zinc-400 block mb-1">Category</label>
+              <label className="text-muted-foreground block mb-1">Category</label>
               <input
                 disabled
                 value={activeProject.category}
-                className="w-full bg-[#181a28] border border-zinc-800 rounded-lg px-3 py-2 text-zinc-300"
+                className="w-full bg-secondary border border-border rounded-lg px-3 py-2 text-muted-foreground"
               />
             </div>
             <div>
-              <label className="text-zinc-400 block mb-1">Created At</label>
+              <label className="text-muted-foreground block mb-1">Created At</label>
               <input
                 disabled
                 value={new Date(activeProject.createdAt).toLocaleDateString()}
-                className="w-full bg-[#181a28] border border-zinc-800 rounded-lg px-3 py-2 text-zinc-300"
+                className="w-full bg-secondary border border-border rounded-lg px-3 py-2 text-muted-foreground"
               />
             </div>
           </div>
           <div>
-            <label className="text-zinc-400 block mb-1 text-xs">Description</label>
-            <p className="p-3 bg-[#181a28] border border-zinc-800 rounded-lg text-xs text-zinc-300 leading-relaxed">
+            <label className="text-muted-foreground block mb-1 text-xs">Description</label>
+            <p className="p-3 bg-secondary border border-border rounded-lg text-xs text-muted-foreground leading-relaxed">
               {activeProject.description}
             </p>
           </div>
         </div>
 
         {/* Create New Project Section */}
-        <div className="bg-[#12141e] border border-zinc-800/80 rounded-xl p-6 space-y-4">
+        <div className="bg-secondary border border-border/80 rounded-xl p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-base font-semibold text-white">Add New Workspace Project</h2>
-              <p className="text-xs text-zinc-400">Create a dedicated project board with custom key prefix</p>
+              <h2 className="text-base font-semibold text-foreground">Add New Workspace Project</h2>
+              <p className="text-xs text-muted-foreground">Create a dedicated project board with custom key prefix</p>
             </div>
             {!isCreating && (
               <button
@@ -155,10 +155,10 @@ export function ProjectSettingsView() {
           </div>
 
           {isCreating && (
-            <form onSubmit={handleCreateNewProject} className="space-y-4 pt-4 border-t border-zinc-800">
+            <form onSubmit={handleCreateNewProject} className="space-y-4 pt-4 border-t border-border">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">Project Name</label>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1">Project Name</label>
                   <input
                     type="text"
                     required
@@ -170,12 +170,12 @@ export function ProjectSettingsView() {
                       }
                     }}
                     placeholder="e.g. Averix AI Sentinel"
-                    className="w-full bg-[#181a28] border border-zinc-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-secondary border border-border rounded-lg px-3 py-2 text-xs text-foreground focus:outline-none focus:border-indigo-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">Project Key (Prefix)</label>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1">Project Key (Prefix)</label>
                   <input
                     type="text"
                     required
@@ -183,18 +183,18 @@ export function ProjectSettingsView() {
                     value={projKey}
                     onChange={(e) => setProjKey(e.target.value.toUpperCase())}
                     placeholder="e.g. AAS"
-                    className="w-full bg-[#181a28] border border-zinc-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono uppercase"
+                    className="w-full bg-secondary border border-border rounded-lg px-3 py-2 text-xs text-foreground focus:outline-none focus:border-indigo-500 font-mono uppercase"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">Category</label>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1">Category</label>
                   <select
                     value={projCategory}
                     onChange={(e) => setProjCategory(e.target.value)}
-                    className="w-full bg-[#181a28] border border-zinc-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-secondary border border-border rounded-lg px-3 py-2 text-xs text-foreground focus:outline-none focus:border-indigo-500"
                   >
                     <option value="Cloud Engineering">Cloud Engineering</option>
                     <option value="AI & Data Products">AI & Data Products</option>
@@ -205,7 +205,7 @@ export function ProjectSettingsView() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">Badge Color</label>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1">Badge Color</label>
                   <div className="flex gap-2 pt-1">
                     {colors.map((c) => (
                       <button
@@ -223,21 +223,21 @@ export function ProjectSettingsView() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">Description</label>
+                <label className="block text-xs font-semibold text-muted-foreground mb-1">Description</label>
                 <textarea
                   rows={3}
                   value={projDesc}
                   onChange={(e) => setProjDesc(e.target.value)}
                   placeholder="Goals, deliverables and core requirements..."
-                  className="w-full bg-[#181a28] border border-zinc-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500 resize-none"
+                  className="w-full bg-secondary border border-border rounded-lg p-2.5 text-xs text-foreground focus:outline-none focus:border-indigo-500 resize-none"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-zinc-800">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
                 <button
                   type="button"
                   onClick={() => setIsCreating(false)}
-                  className="px-4 py-2 rounded-lg bg-zinc-800 text-zinc-300 text-xs font-medium"
+                  className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground text-xs font-medium"
                 >
                   Cancel
                 </button>

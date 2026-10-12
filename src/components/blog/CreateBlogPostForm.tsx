@@ -97,29 +97,29 @@ export function CreateBlogPostForm() {
     <div className="max-w-4xl mx-auto px-6 py-12">
       <Link
         href="/blog"
-        className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-white transition-colors mb-6"
+        className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors mb-6"
       >
         <ArrowLeft className="w-3.5 h-3.5" />
         <span>Back to All Articles</span>
       </Link>
 
-      <div className="bg-[#0e1017] border border-zinc-800 rounded-3xl p-8 sm:p-10 shadow-2xl">
-        <div className="flex items-center gap-3 pb-6 border-b border-zinc-800/80 mb-8">
-          <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
+      <div className="bg-card border border-border rounded-3xl p-8 sm:p-10 shadow-2xl">
+        <div className="flex items-center gap-3 pb-6 border-b border-border/80 mb-8">
+          <div className="p-2.5 rounded-xl bg-indigo-500/10 text-link">
             <PenSquare className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
               Publish Technology Article
             </h1>
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-muted-foreground">
               Share your insights, code architecture, or tech breakdown with the Averix community.
             </p>
           </div>
         </div>
 
         {error && (
-          <div className="p-4 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-400 text-xs flex items-center gap-2 mb-6">
+          <div className="p-4 bg-rose-500/10 border border-rose-500/30 rounded-xl text-danger text-xs flex items-center gap-2 mb-6">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -128,8 +128,8 @@ export function CreateBlogPostForm() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Article Title */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
-              Article Title <span className="text-rose-400">*</span>
+            <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+              Article Title <span className="text-danger">*</span>
             </label>
             <input
               type="text"
@@ -137,20 +137,20 @@ export function CreateBlogPostForm() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Building Resilient Microservices with Next.js & Rust"
-              className="w-full bg-[#141622] border border-zinc-700/80 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 placeholder-zinc-500 font-semibold"
+              className="w-full bg-secondary border border-border/80 rounded-xl px-4 py-3 text-sm text-foreground focus:outline-none focus:border-indigo-500 placeholder-muted-foreground font-semibold"
             />
           </div>
 
           {/* Category & Tags Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
                 Category
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full bg-[#141622] border border-zinc-700/80 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                className="w-full bg-secondary border border-border/80 rounded-xl px-4 py-2.5 text-xs text-foreground focus:outline-none focus:border-indigo-500"
               >
                 {CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>
@@ -161,7 +161,7 @@ export function CreateBlogPostForm() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
                 Tags (Comma-separated)
               </label>
               <input
@@ -169,14 +169,14 @@ export function CreateBlogPostForm() {
                 value={tagInput}
                 onChange={(e) => setTagInput(e.target.value)}
                 placeholder="AI, Cloud, React, Rust"
-                className="w-full bg-[#141622] border border-zinc-700/80 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500 placeholder-zinc-500"
+                className="w-full bg-secondary border border-border/80 rounded-xl px-4 py-2.5 text-xs text-foreground focus:outline-none focus:border-indigo-500 placeholder-muted-foreground"
               />
             </div>
           </div>
 
           {/* Short Summary */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
+            <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
               Executive Summary / Hook
             </label>
             <textarea
@@ -184,14 +184,14 @@ export function CreateBlogPostForm() {
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
               placeholder="A brief 1-2 sentence overview of what the reader will learn..."
-              className="w-full bg-[#141622] border border-zinc-700/80 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-indigo-500 placeholder-zinc-500 resize-none leading-relaxed"
+              className="w-full bg-secondary border border-border/80 rounded-xl p-3 text-xs text-foreground focus:outline-none focus:border-indigo-500 placeholder-muted-foreground resize-none leading-relaxed"
             />
           </div>
 
           {/* Main Article Body */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
-              Article Content <span className="text-rose-400">*</span>
+            <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+              Article Content <span className="text-danger">*</span>
             </label>
             <textarea
               rows={12}
@@ -199,13 +199,13 @@ export function CreateBlogPostForm() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Write your article in markdown or plain text. Use ## for headings, bullet points, and code snippets..."
-              className="w-full bg-[#141622] border border-zinc-700/80 rounded-xl p-4 text-xs text-white focus:outline-none focus:border-indigo-500 placeholder-zinc-500 resize-y font-mono leading-relaxed"
+              className="w-full bg-secondary border border-border/80 rounded-xl p-4 text-xs text-foreground focus:outline-none focus:border-indigo-500 placeholder-muted-foreground resize-y font-mono leading-relaxed"
             />
           </div>
 
           {/* Cover Image Selector */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
+            <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
               Cover Image
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-3">
@@ -216,7 +216,7 @@ export function CreateBlogPostForm() {
                   className={`cursor-pointer rounded-lg overflow-hidden border-2 transition-all relative h-16 ${
                     coverImage === preset.url
                       ? 'border-indigo-500 ring-2 ring-indigo-500/40 scale-102'
-                      : 'border-zinc-800 opacity-60 hover:opacity-100'
+                      : 'border-border opacity-60 hover:opacity-100'
                   }`}
                 >
                   <img src={preset.url} alt={preset.name} className="w-full h-full object-cover" />
@@ -231,27 +231,27 @@ export function CreateBlogPostForm() {
               value={coverImage}
               onChange={(e) => setCoverImage(e.target.value)}
               placeholder="Or paste custom image URL (https://...)"
-              className="w-full bg-[#141622] border border-zinc-700/80 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 placeholder-zinc-500"
+              className="w-full bg-secondary border border-border/80 rounded-xl px-4 py-2 text-xs text-foreground focus:outline-none focus:border-indigo-500 placeholder-muted-foreground"
             />
           </div>
 
           {/* Author Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
-                Your Name <span className="text-rose-400">*</span>
+              <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+                Your Name <span className="text-danger">*</span>
               </label>
               <input
                 type="text"
                 required
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
-                className="w-full bg-[#141622] border border-zinc-700/80 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                className="w-full bg-secondary border border-border/80 rounded-xl px-4 py-2.5 text-xs text-foreground focus:outline-none focus:border-indigo-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
                 Your Role / Title
               </label>
               <input
@@ -259,16 +259,16 @@ export function CreateBlogPostForm() {
                 value={authorRole}
                 onChange={(e) => setAuthorRole(e.target.value)}
                 placeholder="Software Engineer, AI Researcher, etc."
-                className="w-full bg-[#141622] border border-zinc-700/80 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                className="w-full bg-secondary border border-border/80 rounded-xl px-4 py-2.5 text-xs text-foreground focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
 
           {/* Submit Actions */}
-          <div className="pt-6 border-t border-zinc-800/80 flex items-center justify-end gap-3">
+          <div className="pt-6 border-t border-border/80 flex items-center justify-end gap-3">
             <Link
               href="/blog"
-              className="px-5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition-colors"
+              className="px-5 py-2.5 rounded-xl bg-secondary hover:bg-secondary text-muted-foreground text-xs font-semibold transition-colors"
             >
               Cancel
             </Link>

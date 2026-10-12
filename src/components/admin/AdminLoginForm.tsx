@@ -78,16 +78,16 @@ export function AdminLoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md space-y-6 bg-[#11131a] p-8 rounded-2xl shadow-2xl border border-white/10">
+    <div className="w-full max-w-md space-y-6 bg-card p-8 rounded-2xl shadow-2xl border border-foreground/10">
       {/* Brand & Security Header */}
       <div className="text-center space-y-2">
-        <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 mb-2">
+        <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 text-link mb-2">
           <ShieldCheck className="w-6 h-6" />
         </div>
-        <h2 className="text-2xl font-bold tracking-tight text-white">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground">
           Averix Admin Portal
         </h2>
-        <div className="flex items-center justify-center gap-1.5 text-xs text-white/40">
+        <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span>Cloudflare WAF • HTTPS • Central Auth Protected</span>
         </div>
@@ -95,15 +95,15 @@ export function AdminLoginForm() {
 
       {/* Alert Messages */}
       {error && (
-        <div className="flex items-center gap-2 p-3.5 text-xs text-rose-300 bg-rose-950/30 border border-rose-500/30 rounded-xl">
-          <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+        <div className="flex items-center gap-2 p-3.5 text-xs text-danger bg-rose-950/30 border border-rose-500/30 rounded-xl">
+          <AlertCircle className="w-4 h-4 shrink-0 text-danger" />
           <p>{error}</p>
         </div>
       )}
 
       {info && (
-        <div className="flex items-start gap-2 p-3.5 text-xs text-emerald-300 bg-emerald-950/30 border border-emerald-500/30 rounded-xl">
-          <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400 mt-0.5" />
+        <div className="flex items-start gap-2 p-3.5 text-xs text-success bg-emerald-950/30 border border-emerald-500/30 rounded-xl">
+          <CheckCircle2 className="w-4 h-4 shrink-0 text-success mt-0.5" />
           <p>{info}</p>
         </div>
       )}
@@ -111,50 +111,50 @@ export function AdminLoginForm() {
       {step === 'credentials' ? (
         <form onSubmit={handleCredentialsSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
               Admin Email
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-white/40 absolute left-3.5 top-3" />
+              <Mail className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="admin@averixlabs.com"
-                className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-foreground/5 border border-foreground/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-foreground placeholder-white/30 focus:outline-none focus:border-indigo-500 transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
               Master Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-white/40 absolute left-3.5 top-3" />
+              <Lock className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3" />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="••••••••••••"
-                className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-foreground/5 border border-foreground/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-foreground placeholder-white/30 focus:outline-none focus:border-indigo-500 transition-colors"
               />
             </div>
           </div>
 
           {/* Flow Mode Switcher */}
           <div className="flex items-center justify-between pt-1 text-xs">
-            <span className="text-white/40">Authentication Method:</span>
+            <span className="text-muted-foreground">Authentication Method:</span>
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setAuthMode('otp')}
                 className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
                   authMode === 'otp' 
-                    ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40' 
-                    : 'text-white/40 hover:text-white'
+                    ? 'bg-indigo-500/20 text-link border border-indigo-500/40'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 Email/OTP (MFA)
@@ -164,8 +164,8 @@ export function AdminLoginForm() {
                 onClick={() => setAuthMode('direct')}
                 className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
                   authMode === 'direct' 
-                    ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40' 
-                    : 'text-white/40 hover:text-white'
+                    ? 'bg-indigo-500/20 text-link border border-indigo-500/40'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 Password Only
@@ -185,11 +185,11 @@ export function AdminLoginForm() {
       ) : (
         <form onSubmit={handleOtpSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-white/50 mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
               Enter 6-Digit Verification Code
             </label>
             <div className="relative">
-              <KeyRound className="w-4 h-4 text-white/40 absolute left-3.5 top-3" />
+              <KeyRound className="w-4 h-4 text-muted-foreground absolute left-3.5 top-3" />
               <input
                 type="text"
                 value={otp}
@@ -197,7 +197,7 @@ export function AdminLoginForm() {
                 maxLength={6}
                 required
                 placeholder="123456"
-                className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-base font-mono tracking-widest text-center text-white placeholder-white/30 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-foreground/5 border border-foreground/10 rounded-xl pl-10 pr-4 py-2.5 text-base font-mono tracking-widest text-center text-foreground placeholder-white/30 focus:outline-none focus:border-indigo-500 transition-colors"
               />
             </div>
           </div>
@@ -214,7 +214,7 @@ export function AdminLoginForm() {
           <button
             type="button"
             onClick={() => setStep('credentials')}
-            className="w-full text-center text-xs text-white/40 hover:text-white transition-colors pt-1 cursor-pointer"
+            className="w-full text-center text-xs text-muted-foreground hover:text-foreground transition-colors pt-1 cursor-pointer"
           >
             ← Back to email and password
           </button>
@@ -222,7 +222,7 @@ export function AdminLoginForm() {
       )}
 
       {/* Architecture badge */}
-      <div className="pt-4 border-t border-white/5 text-[10px] text-white/30 text-center font-mono">
+      <div className="pt-4 border-t border-foreground/5 text-[10px] text-muted-foreground text-center font-mono">
         PostgreSQL (Roles) • Redis (Sessions) • OTP Provider Verified
       </div>
     </div>

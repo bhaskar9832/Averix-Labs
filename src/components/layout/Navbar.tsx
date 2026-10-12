@@ -52,7 +52,7 @@ export function Navbar() {
             <ThemeToggle />
              <Link
               href="/jira"
-              className="bg-zinc-800/80 hover:bg-zinc-700 text-indigo-400 hover:text-indigo-300 border border-zinc-700/80 text-sm font-semibold px-4 py-2.5 rounded-lg transition-all flex items-center gap-2"
+              className="bg-secondary/80 hover:bg-secondary text-link hover:text-link border border-border/80 text-sm font-semibold px-4 py-2.5 rounded-lg transition-all flex items-center gap-2"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Jira Workspace</span>
@@ -95,7 +95,7 @@ export function Navbar() {
               <Link
                 href="/jira"
                 onClick={() => setIsOpen(false)}
-                className="block w-full text-center bg-zinc-800 hover:bg-zinc-700 text-indigo-400 font-semibold px-4 py-3 rounded-lg transition-colors border border-zinc-700"
+                className="block w-full text-center bg-secondary hover:bg-secondary text-link font-semibold px-4 py-3 rounded-lg transition-colors border border-border"
               >
                 Launch Jira Workspace
               </Link>

@@ -42,50 +42,50 @@ export default async function AnalyticsPage() {
     <div className="p-8 max-w-[1400px] mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">Web analytics</h1>
-          <p className="text-white/40 mt-1 text-sm">Real visitor sessions tracked from your public website.</p>
+          <h1 className="text-2xl font-bold text-foreground tracking-tight">Web analytics</h1>
+          <p className="text-muted-foreground mt-1 text-sm">Real visitor sessions tracked from your public website.</p>
         </div>
-        <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+        <div className="bg-emerald-500/10 border border-emerald-500/20 text-success px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Live tracking active
         </div>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="bg-[#11131A] border border-white/5 rounded-xl p-5">
-          <p className="text-xs font-medium text-white/40 mb-2 flex items-center gap-1.5"><Eye className="w-3.5 h-3.5" /> Total sessions</p>
-          <p className="text-3xl font-semibold text-white mb-2">{totalSessions.toLocaleString()}</p>
-          <p className="text-[10px] font-medium text-indigo-400">All time tracked visits</p>
+        <div className="bg-card border border-foreground/5 rounded-xl p-5">
+          <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5"><Eye className="w-3.5 h-3.5" /> Total sessions</p>
+          <p className="text-3xl font-semibold text-foreground mb-2">{totalSessions.toLocaleString()}</p>
+          <p className="text-[10px] font-medium text-link">All time tracked visits</p>
         </div>
-        <div className="bg-[#11131A] border border-white/5 rounded-xl p-5">
-          <p className="text-xs font-medium text-white/40 mb-2 flex items-center gap-1.5"><Zap className="w-3.5 h-3.5" /> Today</p>
-          <p className="text-3xl font-semibold text-white mb-2">{sessionsToday}</p>
-          <p className="text-[10px] font-medium text-emerald-400">Sessions since midnight</p>
+        <div className="bg-card border border-foreground/5 rounded-xl p-5">
+          <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5"><Zap className="w-3.5 h-3.5" /> Today</p>
+          <p className="text-3xl font-semibold text-foreground mb-2">{sessionsToday}</p>
+          <p className="text-[10px] font-medium text-success">Sessions since midnight</p>
         </div>
-        <div className="bg-[#11131A] border border-white/5 rounded-xl p-5">
-          <p className="text-xs font-medium text-white/40 mb-2 flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" /> Top source</p>
-          <p className="text-xl font-semibold text-white mb-2">{utmBreakdown[0]?.name || 'Direct'}</p>
-          <p className="text-[10px] font-medium text-white/40">Most common UTM source</p>
+        <div className="bg-card border border-foreground/5 rounded-xl p-5">
+          <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" /> Top source</p>
+          <p className="text-xl font-semibold text-foreground mb-2">{utmBreakdown[0]?.name || 'Direct'}</p>
+          <p className="text-[10px] font-medium text-muted-foreground">Most common UTM source</p>
         </div>
-        <div className="bg-[#11131A] border border-white/5 rounded-xl p-5">
-          <p className="text-xs font-medium text-white/40 mb-2 flex items-center gap-1.5"><Users className="w-3.5 h-3.5" /> Top browser</p>
-          <p className="text-xl font-semibold text-white mb-2">{browserBreakdown[0]?.name || '—'}</p>
-          <p className="text-[10px] font-medium text-white/40">Most common visitor browser</p>
+        <div className="bg-card border border-foreground/5 rounded-xl p-5">
+          <p className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1.5"><Users className="w-3.5 h-3.5" /> Top browser</p>
+          <p className="text-xl font-semibold text-foreground mb-2">{browserBreakdown[0]?.name || '—'}</p>
+          <p className="text-[10px] font-medium text-muted-foreground">Most common visitor browser</p>
         </div>
       </div>
 
       {totalSessions === 0 ? (
-        <div className="bg-[#11131A] border border-white/5 rounded-xl p-12 text-center">
-          <Eye className="w-12 h-12 text-white/20 mx-auto mb-4" />
-          <p className="text-white font-medium text-lg mb-2">No analytics data yet</p>
-          <p className="text-white/40 text-sm max-w-md mx-auto mb-6">
+        <div className="bg-card border border-foreground/5 rounded-xl p-12 text-center">
+          <Eye className="w-12 h-12 text-foreground/20 mx-auto mb-4" />
+          <p className="text-foreground font-medium text-lg mb-2">No analytics data yet</p>
+          <p className="text-muted-foreground text-sm max-w-md mx-auto mb-6">
             Analytics sessions are tracked when visitors visit your public website. 
             Make sure the analytics tracking code is installed on your site.
           </p>
-          <div className="bg-[#09090b] border border-white/5 rounded-lg p-4 text-left max-w-md mx-auto">
-            <p className="text-xs text-white/60 font-mono mb-2">// Tracking fires automatically on your site when:</p>
-            <p className="text-xs text-indigo-400 font-mono">POST /api/analytics</p>
-            <p className="text-xs text-white/40 font-mono mt-1">{'{ visitor_id, browser, utm_source, utm_medium }'}</p>
+          <div className="bg-background border border-foreground/5 rounded-lg p-4 text-left max-w-md mx-auto">
+            <p className="text-xs text-muted-foreground font-mono mb-2">// Tracking fires automatically on your site when:</p>
+            <p className="text-xs text-link font-mono">POST /api/analytics</p>
+            <p className="text-xs text-muted-foreground font-mono mt-1">{'{ visitor_id, browser, utm_source, utm_medium }'}</p>
           </div>
         </div>
       ) : (

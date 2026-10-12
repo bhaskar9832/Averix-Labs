@@ -70,7 +70,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
           <div className="bg-card border border-border rounded-3xl p-8 md:p-12">
             <div className="flex items-center gap-3 mb-6">
-              <TrendingUp className="w-6 h-6 text-emerald-500" />
+              <TrendingUp className="w-6 h-6 text-success" />
               <h2 className="text-2xl font-bold text-foreground font-serif">How it improves your business</h2>
             </div>
             <p className="text-muted-foreground text-lg leading-relaxed">
@@ -80,7 +80,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
           <div className="bg-card border border-border rounded-3xl p-8 md:p-12">
             <div className="flex items-center gap-3 mb-6">
-              <ShieldCheck className="w-6 h-6 text-blue-500" />
+              <ShieldCheck className="w-6 h-6 text-link" />
               <h2 className="text-2xl font-bold text-foreground font-serif">Scalability & Future-proofing</h2>
             </div>
             <p className="text-muted-foreground text-lg leading-relaxed">

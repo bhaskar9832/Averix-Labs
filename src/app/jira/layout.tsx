@@ -12,7 +12,7 @@ function JiraLayoutInner({ children }: { children: React.ReactNode }) {
   const { selectedIssueId, setSelectedIssueId } = useJira();
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-[#090a0f] text-zinc-100 overflow-hidden font-sans selection:bg-indigo-500/30">
+    <div className="flex flex-col h-screen w-screen bg-background text-foreground overflow-hidden font-sans selection:bg-indigo-500/30">
       {/* Top Jira Bar */}
       <JiraNavbar onOpenCreateModal={() => setIsCreateOpen(true)} />
 

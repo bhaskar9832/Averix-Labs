@@ -50,32 +50,32 @@ export function BlogHomeClient({ initialPosts }: { initialPosts: BlogPost[] }) {
   return (
     <div className="flex-1 pb-20">
       {/* Hero Section */}
-      <section className="relative pt-12 pb-16 px-6 border-b border-zinc-900 bg-radial-[at_top] from-indigo-950/20 via-transparent to-transparent">
+      <section className="relative pt-12 pb-16 px-6 border-b border-border bg-radial-[at_top] from-indigo-950/20 via-transparent to-transparent">
         <div className="max-w-5xl mx-auto text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-link text-xs font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Averix Labs Engineering & Technology Publication</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-black text-foreground tracking-tight leading-tight">
             Insights on AI, Distributed Cloud, <br className="hidden sm:inline" />
             and Next-Gen Software.
           </h1>
 
-          <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Written by Averix engineers, builders, and community contributors. Practical architectures, deep dives, benchmarks, and production-tested patterns.
           </p>
 
           {/* Search bar & Write action */}
           <div className="pt-4 max-w-xl mx-auto flex flex-col sm:flex-row items-center gap-3">
             <div className="relative w-full">
-              <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-muted-foreground absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search topics, agents, next.js, cloud..."
-                className="w-full bg-[#11131c] border border-zinc-800 focus:border-indigo-500 focus:bg-[#161824] rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-zinc-500 outline-none transition-all shadow-inner"
+                className="w-full bg-card border border-border focus:border-indigo-500 focus:bg-secondary rounded-xl pl-10 pr-4 py-2.5 text-xs text-foreground placeholder-muted-foreground outline-none transition-all shadow-inner"
               />
             </div>
             <Link
@@ -96,7 +96,7 @@ export function BlogHomeClient({ initialPosts }: { initialPosts: BlogPost[] }) {
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   selectedCategory === cat
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                    : 'bg-zinc-900/80 text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700'
+                    : 'bg-card/80 text-muted-foreground hover:text-foreground border border-border hover:border-border'
                 }`}
               >
                 {cat}
@@ -111,12 +111,12 @@ export function BlogHomeClient({ initialPosts }: { initialPosts: BlogPost[] }) {
         {/* Featured Post Card (Show only on All without active search) */}
         {featuredPost && selectedCategory === 'All' && !search && (
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-400">
-              <Flame className="w-4 h-4 text-amber-400" />
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-link">
+              <Flame className="w-4 h-4 text-warning" />
               <span>Featured Cover Story</span>
             </div>
 
-            <div className="bg-[#0e1017] border border-indigo-500/30 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-xl shadow-indigo-950/20 group">
+            <div className="bg-card border border-indigo-500/30 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-xl shadow-indigo-950/20 group">
               <div className="lg:col-span-7 h-64 sm:h-96 relative overflow-hidden">
                 <img
                   src={featuredPost.coverImage}
@@ -124,7 +124,7 @@ export function BlogHomeClient({ initialPosts }: { initialPosts: BlogPost[] }) {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-black/80 backdrop-blur-md text-indigo-300 border border-white/10">
+                  <span className="px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-black/80 backdrop-blur-md text-link border border-foreground/10">
                     {featuredPost.category}
                   </span>
                 </div>
@@ -132,24 +132,24 @@ export function BlogHomeClient({ initialPosts }: { initialPosts: BlogPost[] }) {
 
               <div className="lg:col-span-5 p-8 sm:p-10 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-3 text-xs text-zinc-500 mb-3">
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
                     <span>{featuredPost.readTimeMinutes} min read</span>
                     <span>•</span>
                     <span>{new Date(featuredPost.publishedAt).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                   </div>
 
                   <Link href={`/blog/${featuredPost.slug}`}>
-                    <h2 className="text-xl sm:text-3xl font-black text-white hover:text-indigo-300 transition-colors leading-tight mb-4">
+                    <h2 className="text-xl sm:text-3xl font-black text-foreground hover:text-link transition-colors leading-tight mb-4">
                       {featuredPost.title}
                     </h2>
                   </Link>
 
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed line-clamp-4 mb-6">
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-4 mb-6">
                     {featuredPost.summary}
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between pt-6 border-t border-zinc-800/80">
+                <div className="flex items-center justify-between pt-6 border-t border-border/80">
                   <div className="flex items-center gap-3">
                     <img
                       src={featuredPost.authorAvatar}
@@ -157,8 +157,8 @@ export function BlogHomeClient({ initialPosts }: { initialPosts: BlogPost[] }) {
                       className="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-500/50"
                     />
                     <div>
-                      <h4 className="text-xs font-bold text-white">{featuredPost.authorName}</h4>
-                      <p className="text-[11px] text-zinc-500">{featuredPost.authorRole}</p>
+                      <h4 className="text-xs font-bold text-foreground">{featuredPost.authorName}</h4>
+                      <p className="text-[11px] text-muted-foreground">{featuredPost.authorRole}</p>
                     </div>
                   </div>
 
@@ -177,10 +177,10 @@ export function BlogHomeClient({ initialPosts }: { initialPosts: BlogPost[] }) {
 
         {/* Regular Posts Grid */}
         <div>
-          <div className="flex items-center justify-between pb-6 border-b border-zinc-900 mb-6">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <div className="flex items-center justify-between pb-6 border-b border-border mb-6">
+            <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
               <span>{selectedCategory === 'All' ? 'Recent Publications' : selectedCategory}</span>
-              <span className="text-xs font-mono font-normal px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-400">
+              <span className="text-xs font-mono font-normal px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">
                 {regularPosts.length} posts
               </span>
             </h2>
@@ -193,8 +193,8 @@ export function BlogHomeClient({ initialPosts }: { initialPosts: BlogPost[] }) {
           </div>
 
           {regularPosts.length === 0 && (
-            <div className="py-20 text-center bg-[#0e1017] border border-dashed border-zinc-800 rounded-3xl p-8 space-y-3">
-              <p className="text-sm text-zinc-400 font-medium">No articles found matching &quot;{search || selectedCategory}&quot;.</p>
+            <div className="py-20 text-center bg-card border border-dashed border-border rounded-3xl p-8 space-y-3">
+              <p className="text-sm text-muted-foreground font-medium">No articles found matching &quot;{search || selectedCategory}&quot;.</p>
               <Link
                 href="/blog/new"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold"

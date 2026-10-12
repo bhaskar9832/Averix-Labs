@@ -56,18 +56,18 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
   });
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#0a0b10]">
+    <div className="flex-1 flex flex-col h-full overflow-hidden bg-background">
       {/* Subheader */}
-      <div className="px-6 py-4 border-b border-zinc-800/80 bg-[#0e1017] flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="px-6 py-4 border-b border-border/80 bg-card flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-zinc-400 mb-1">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <span>{activeProject.name}</span>
             <span>/</span>
-            <span className="text-zinc-200 font-semibold">Backlog & Issue Table</span>
+            <span className="text-foreground font-semibold">Backlog & Issue Table</span>
           </div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl font-bold text-foreground tracking-tight flex items-center gap-2">
             <span>{activeProject.key} Backlog & Work Items</span>
-            <span className="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            <span className="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-indigo-500/10 text-link border border-indigo-500/20">
               {projectIssues.length} issues
             </span>
           </h1>
@@ -75,11 +75,11 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
 
         <div className="flex items-center gap-3">
           {/* Quick tab switcher */}
-          <div className="flex items-center bg-[#141622] p-1 rounded-lg border border-zinc-800 text-xs">
+          <div className="flex items-center bg-secondary p-1 rounded-lg border border-border text-xs">
             <button
               onClick={() => setActiveTab('all')}
               className={`px-3 py-1 rounded-md transition-all ${
-                activeTab === 'all' ? 'bg-indigo-600 text-white font-medium' : 'text-zinc-400 hover:text-white'
+                activeTab === 'all' ? 'bg-indigo-600 text-white font-medium' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               All
@@ -87,7 +87,7 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
             <button
               onClick={() => setActiveTab('backlog')}
               className={`px-3 py-1 rounded-md transition-all ${
-                activeTab === 'backlog' ? 'bg-indigo-600 text-white font-medium' : 'text-zinc-400 hover:text-white'
+                activeTab === 'backlog' ? 'bg-indigo-600 text-white font-medium' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               Backlog
@@ -95,7 +95,7 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
             <button
               onClick={() => setActiveTab('in_flight')}
               className={`px-3 py-1 rounded-md transition-all ${
-                activeTab === 'in_flight' ? 'bg-indigo-600 text-white font-medium' : 'text-zinc-400 hover:text-white'
+                activeTab === 'in_flight' ? 'bg-indigo-600 text-white font-medium' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               In Flight
@@ -103,7 +103,7 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
             <button
               onClick={() => setActiveTab('completed')}
               className={`px-3 py-1 rounded-md transition-all ${
-                activeTab === 'completed' ? 'bg-indigo-600 text-white font-medium' : 'text-zinc-400 hover:text-white'
+                activeTab === 'completed' ? 'bg-indigo-600 text-white font-medium' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               Done
@@ -122,10 +122,10 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
 
       {/* Table view */}
       <div className="flex-1 overflow-y-auto p-6">
-        <div className="border border-zinc-800/80 rounded-xl overflow-hidden bg-[#0e1017]">
+        <div className="border border-border/80 rounded-xl overflow-hidden bg-card">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-zinc-800 bg-[#12141e] text-[11px] font-bold uppercase tracking-wider text-zinc-400">
+              <tr className="border-b border-border bg-secondary text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
                 <th className="py-3 px-4 w-12 text-center">Type</th>
                 <th className="py-3 px-4 w-28">Key</th>
                 <th className="py-3 px-4">Summary</th>
@@ -136,7 +136,7 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
                 <th className="py-3 px-4 w-28 text-right">Updated</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-800/60 text-xs">
+            <tbody className="divide-y divide-border/60 text-xs">
               {projectIssues.map((issue) => {
                 const assignee = members.find((m) => m.id === issue.assigneeId);
 
@@ -144,21 +144,21 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
                   <tr
                     key={issue.id}
                     onClick={() => setSelectedIssueId(issue.id)}
-                    className="hover:bg-zinc-800/40 cursor-pointer transition-colors group"
+                    className="hover:bg-secondary/40 cursor-pointer transition-colors group"
                   >
                     <td className="py-3 px-4 text-center">
                       <IssueTypeIcon type={issue.type} className="w-4 h-4 mx-auto" />
                     </td>
 
-                    <td className="py-3 px-4 font-mono font-bold text-indigo-400">
+                    <td className="py-3 px-4 font-mono font-bold text-link">
                       {issue.key}
                     </td>
 
-                    <td className="py-3 px-4 font-medium text-white group-hover:text-indigo-300 transition-colors">
+                    <td className="py-3 px-4 font-medium text-foreground group-hover:text-link transition-colors">
                       <div className="flex items-center gap-2">
                         <span className="truncate max-w-xl">{issue.summary}</span>
                         {issue.comments.length > 0 && (
-                          <span className="flex items-center gap-1 text-[10px] text-zinc-500 font-mono">
+                          <span className="flex items-center gap-1 text-[10px] text-muted-foreground font-mono">
                             <MessageSquare className="w-3 h-3" />
                             {issue.comments.length}
                           </span>
@@ -170,7 +170,7 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
                       <select
                         value={issue.status}
                         onChange={(e) => updateIssueStatus(issue.id, e.target.value as IssueStatus)}
-                        className="bg-[#1b1e2a] border border-zinc-700 rounded px-2 py-1 text-[11px] font-semibold text-zinc-200 focus:outline-none"
+                        className="bg-muted border border-border rounded px-2 py-1 text-[11px] font-semibold text-foreground focus:outline-none"
                       >
                         <option value="backlog">Backlog</option>
                         <option value="todo">To Do</option>
@@ -190,20 +190,20 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
                           <img
                             src={assignee.avatar}
                             alt={assignee.name}
-                            className="w-5 h-5 rounded-full object-cover ring-1 ring-zinc-700 shrink-0"
+                            className="w-5 h-5 rounded-full object-cover ring-1 ring-border shrink-0"
                           />
-                          <span className="text-zinc-300 truncate">{assignee.name}</span>
+                          <span className="text-muted-foreground truncate">{assignee.name}</span>
                         </div>
                       ) : (
-                        <span className="text-zinc-500 italic">Unassigned</span>
+                        <span className="text-muted-foreground italic">Unassigned</span>
                       )}
                     </td>
 
-                    <td className="py-3 px-4 text-center font-mono text-zinc-400">
+                    <td className="py-3 px-4 text-center font-mono text-muted-foreground">
                       {issue.storyPoints ?? '-'}
                     </td>
 
-                    <td className="py-3 px-4 text-right text-zinc-500 text-[11px] font-mono">
+                    <td className="py-3 px-4 text-right text-muted-foreground text-[11px] font-mono">
                       {new Date(issue.updatedAt).toLocaleDateString([], { month: 'short', day: 'numeric' })}
                     </td>
                   </tr>
@@ -212,7 +212,7 @@ export function BacklogView({ onOpenCreateModal }: { onOpenCreateModal: () => vo
 
               {projectIssues.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-zinc-500 text-xs">
+                  <td colSpan={8} className="py-12 text-center text-muted-foreground text-xs">
                     No tickets found matching your filter or criteria.
                   </td>
                 </tr>

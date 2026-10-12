@@ -28,7 +28,7 @@ const caseStudies = [
     ],
     duration: "6 months",
     color: "border-orange-500/30 hover:border-orange-500/60",
-    accent: "text-orange-400",
+    accent: "text-warning",
   },
   {
     badge: "LOCAL BUSINESS",
@@ -43,7 +43,7 @@ const caseStudies = [
     ],
     duration: "3 months",
     color: "border-green-500/30 hover:border-green-500/60",
-    accent: "text-green-400",
+    accent: "text-success",
   },
   {
     badge: "SAAS STARTUP",
@@ -58,7 +58,7 @@ const caseStudies = [
     ],
     duration: "8 weeks",
     color: "border-blue-500/30 hover:border-blue-500/60",
-    accent: "text-blue-400",
+    accent: "text-link",
   },
   {
     badge: "REAL ESTATE",
@@ -73,7 +73,7 @@ const caseStudies = [
     ],
     duration: "4 months",
     color: "border-violet-500/30 hover:border-violet-500/60",
-    accent: "text-violet-400",
+    accent: "text-link",
   },
   {
     badge: "HEALTHCARE",
@@ -88,7 +88,7 @@ const caseStudies = [
     ],
     duration: "5 months",
     color: "border-teal-500/30 hover:border-teal-500/60",
-    accent: "text-teal-400",
+    accent: "text-success",
   },
   {
     badge: "MANUFACTURING",
@@ -103,7 +103,7 @@ const caseStudies = [
     ],
     duration: "5 months",
     color: "border-amber-500/30 hover:border-amber-500/60",
-    accent: "text-amber-400",
+    accent: "text-warning",
   },
 ];
 

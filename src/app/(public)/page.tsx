@@ -121,13 +121,13 @@ export default function Home() {
               <Link
                 key={i}
                 href={`/services/${srv.slug}`}
-                className="bg-card border border-border hover:border-[#4f46e5]/40 rounded-xl p-5 flex items-center gap-4 group transition-all duration-200 hover:bg-[#0f0f0f]"
+                className="bg-card border border-border hover:border-[#4f46e5]/40 rounded-xl p-5 flex items-center gap-4 group transition-all duration-200 hover:bg-secondary"
               >
                 <div className="w-11 h-11 rounded-xl bg-secondary border border-border flex items-center justify-center text-xl flex-shrink-0 group-hover:border-[#4f46e5]/30 transition-colors">
                   {srv.icon}
                 </div>
                 <div className="min-w-0">
-                  <div className="text-foreground font-semibold text-sm truncate group-hover:text-[#c7d2fe] transition-colors">{srv.title}</div>
+                  <div className="text-foreground font-semibold text-sm truncate group-hover:text-link transition-colors">{srv.title}</div>
                   <div className="text-muted-foreground text-xs mt-0.5 truncate">{srv.tags}</div>
                 </div>
               </Link>
@@ -211,9 +211,9 @@ export default function Home() {
           {/* Teaser case study strip */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { badge: "E-COMMERCE", title: "D2C Brand scales from ₹2L to ₹18L/month", metric: "9X Revenue", color: "text-orange-400" },
-              { badge: "LOCAL BUSINESS", title: "Restaurant chain ranks Top 3 in Local Pack across 5 cities", metric: "280% More Calls", color: "text-green-400" },
-              { badge: "SAAS", title: "Startup launches with AI onboarding and hits 500 users in 60 days", metric: "0 → 500 Users", color: "text-blue-400" },
+              { badge: "E-COMMERCE", title: "D2C Brand scales from ₹2L to ₹18L/month", metric: "9X Revenue", color: "text-warning" },
+              { badge: "LOCAL BUSINESS", title: "Restaurant chain ranks Top 3 in Local Pack across 5 cities", metric: "280% More Calls", color: "text-success" },
+              { badge: "SAAS", title: "Startup launches with AI onboarding and hits 500 users in 60 days", metric: "0 → 500 Users", color: "text-link" },
             ].map((cs, i) => (
               <Link
                 key={i}
@@ -221,7 +221,7 @@ export default function Home() {
                 className="bg-card border border-border hover:border-[#4f46e5]/40 rounded-xl p-6 group transition-all duration-200"
               >
                 <div className={`text-xs font-bold ${cs.color} mb-3 uppercase tracking-wider`}>{cs.badge}</div>
-                <p className="text-foreground font-semibold text-sm mb-4 group-hover:text-[#c7d2fe] transition-colors leading-snug">{cs.title}</p>
+                <p className="text-foreground font-semibold text-sm mb-4 group-hover:text-link transition-colors leading-snug">{cs.title}</p>
                 <div className={`text-xl font-bold ${cs.color} font-serif`}>{cs.metric}</div>
               </Link>
             ))}

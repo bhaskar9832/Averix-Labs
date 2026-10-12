@@ -50,7 +50,7 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 space-y-6">
       {error && (
-        <div className="bg-red-900/20 border border-red-500/50 text-red-400 text-sm p-4 rounded-lg">
+        <div className="bg-red-900/20 border border-red-500/50 text-danger text-sm p-4 rounded-lg">
           {error}
         </div>
       )}
@@ -101,7 +101,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full md:w-auto bg-white text-black hover:bg-gray-200 disabled:opacity-50 font-medium px-8 py-3 rounded-lg text-sm transition-colors cursor-pointer"
+        className="w-full md:w-auto bg-foreground text-background hover:opacity-90 disabled:opacity-50 font-medium px-8 py-3 rounded-lg text-sm transition-colors cursor-pointer"
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>
