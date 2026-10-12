@@ -67,5 +67,5 @@ vercel.json
 # ─── PM2 ─────────────────────────────────────────────────────
 ecosystem.config.js
 
-# Isolated static frontend build
+# Isolated frontend build
 .pages-build/

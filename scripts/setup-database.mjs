@@ -1,6 +1,6 @@
 import nextEnv from '@next/env';
 import pg from 'pg';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { getDatabaseConfig } from '../src/lib/database-config.mjs';
 
 const { loadEnvConfig } = nextEnv;
@@ -12,9 +12,12 @@ async function main() {
   try {
     await client.connect();
     await client.query('BEGIN');
-    await client.query(readFileSync(new URL('../database/migrations/001_create_inquiries.sql', import.meta.url), 'utf8'));
+    const directory = new URL('../database/migrations/', import.meta.url);
+    for (const file of readdirSync(directory).filter(name => name.endsWith('.sql')).sort()) {
+      await client.query(readFileSync(new URL(file, directory), 'utf8'));
+    }
     await client.query('COMMIT');
-    console.log('Aiven PostgreSQL connected; inquiry table and indexes are ready.');
+    console.log('Aiven PostgreSQL connected; inquiry and CRM tables are ready.');
   } finally {
     await client.end();
   }

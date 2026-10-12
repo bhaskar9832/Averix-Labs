@@ -2,6 +2,7 @@ import { StructuredData } from "@/components/StructuredData";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/config/site";
+import { AnalyticsTracker } from "@/components/analytics/AnalyticsTracker";
 
 export default function PublicLayout({
   children,
@@ -10,6 +11,7 @@ export default function PublicLayout({
 }>) {
   return (
     <div className="flex flex-col min-h-screen">
+      <AnalyticsTracker />
       <StructuredData data={{
         "@context": "https://schema.org",
         "@graph": [

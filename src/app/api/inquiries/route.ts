@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/database';
+import { saveContact, validateContact } from '@/lib/contact-store.mjs';
 
 export const runtime = 'nodejs';
 
-const projectTypes = new Set(['SaaS Platform', 'Web Application', 'Mobile Application', 'AI Product', 'API / Backend', 'Automation', 'Other']);
 
 function corsHeaders(request: Request) {
   const origin = request.headers.get('origin');
@@ -44,20 +43,11 @@ export async function POST(request: Request) {
     return respond({ error: 'Invalid request' }, 400);
   }
 
-  const name = typeof data.name === 'string' ? data.name.trim() : '';
-  const email = typeof data.email === 'string' ? data.email.trim() : '';
-  const company = typeof data.company === 'string' ? data.company.trim() : '';
-  const projectType = typeof data.project_type === 'string' ? data.project_type.trim() : '';
-  const message = typeof data.message === 'string' ? data.message.trim() : '';
-  if (!name || name.length > 200 || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || company.length > 200 || !projectTypes.has(projectType) || !message || message.length > 10000) {
-    return respond({ error: 'Please check your contact details and message' }, 400);
-  }
+  const inquiry = validateContact(data);
+  if (!inquiry) return respond({ error: 'Please check your contact details and message' }, 400);
 
   try {
-    await getDatabase().query(
-      'INSERT INTO public.project_inquiries (full_name, email, company_name, project_type, description) VALUES ($1, $2, $3, $4, $5)',
-      [name, email, company || null, projectType, message],
-    );
+    await saveContact(inquiry);
     return respond({ success: true }, 201);
   } catch {
     console.error('[Averix Labs] Failed to save inquiry');

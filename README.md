@@ -29,7 +29,7 @@ Built with cutting-edge web technologies, the platform focuses on performance, a
 
 - **Responsive Modern UI:** Clean, intuitive interface optimized for all devices with Tailwind CSS.
 - **Service Showcase:** Detailed sections for Web Dev, Mobile Apps, SaaS, E-commerce, and more.
-- **Lead Generation:** Integrated contact and consultation forms saved to Aiven PostgreSQL through a server API.
+- **Lead Generation:** Integrated contact and consultation forms saved to Aiven PostgreSQL.
 - **Performance Optimized:** Utilizing Next.js 16 features like Server Components and optimized image loading.
 - **Interactive Animations:** Smooth scrolling and reveal animations powered by Framer Motion.
 - **SEO Ready:** Configured with optimized metadata and semantic HTML.
@@ -63,21 +63,8 @@ Follow these instructions to set up the project locally.
    cp .env.example .env.local
    ```
    *Required variables:*
-   - `DATABASE_URL` (server only; never use a `NEXT_PUBLIC_` prefix)
-   - `DATABASE_CA_CERT_PATH` or `DATABASE_CA_CERT` (Aiven CA certificate)
-
-   Connection setup follows [Aiven’s Node.js guide](https://aiven.io/docs/products/postgresql/howto/connect-node) with certificate verification enabled.
-
-   Download the CA certificate from Aiven and save it to `certs/aiven-ca.pem`.
-   Initialize the inquiry table with `npm run db:setup`. This creates the table
-   and indexes without deleting existing data. Existing Supabase records are
-   not copied automatically.
-
-   Run the backend on a server supporting the Next.js Node.js runtime. Set the
-   database variables there; `DATABASE_CA_CERT` accepts PEM text with actual
-   newlines or escaped `\n`. The frontend can be deployed separately to GitHub
-   Pages as described below.
-   Form submissions are stored in the database; email notifications are not configured.
+   - `DATABASE_URL`
+   - `DATABASE_CA_CERT`
 
 4. **Run the development server**
    ```bash
@@ -92,7 +79,7 @@ src/
 ├── app/             # Next.js App Router (Pages & Layouts)
 ├── components/      # Reusable React components (ContactForm, UI elements)
 ├── config/          # Site configuration (site.ts with company info)
-└── lib/             # Utility functions and server-only PostgreSQL connection
+└── lib/             # Utility functions and server-side PostgreSQL connection
 ```
 
 ## 👨‍💻 Team
@@ -110,6 +97,26 @@ src/
 <div align="center">
   <sub>Built with ❤️ by the Averix Labs Team</sub>
 </div>
+
+## Running the restored contact backend
+
+This branch saves inquiries in Aiven PostgreSQL through `/api/inquiries`.
+Set `DATABASE_URL` and `DATABASE_CA_CERT` in your server host's environment,
+and run `npm run db:setup` to create the inquiry and CRM tables and indexes.
+Use `npm ci`, `npm run build`, and `npm start` for a full Next.js deployment
+on Render or another Node.js host. Leave `BUILD_TARGET` and
+`NEXT_PUBLIC_INQUIRY_API_URL` unset for this full application deployment.
+
+For GitHub Pages, provide the public HTTPS backend endpoint in the repository
+variable `NEXT_PUBLIC_INQUIRY_API_URL`, then use the frontend Pages workflow.
+Database credentials remain in server environment variables or GitHub Actions
+secrets `DATABASE_URL` and `DATABASE_CA_CERT`; they are excluded from the static
+build. GitHub Pages cannot execute the inquiry API or access repository secrets
+at runtime. The separate backend must be running before publishing the form.
+
+The service catalog uses the six capabilities already described by this site.
+Links to unavailable blog, results and Jira pages are removed or redirected to
+existing portfolio pages. Analytics tracking is not enabled on this branch.
 
 ## Search visibility after deployment
 
@@ -137,43 +144,16 @@ SEO changes help discovery but do not guarantee rankings.
 
 Guidance: [Google's SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide).
 
-## GitHub Pages frontend + existing backend server
+## Contact storage consistency
 
-GitHub Pages hosts the static website. A separate HTTPS backend receives contact
-form requests and connects to Aiven. GitHub Actions secrets are available to
-workflows, not to the running Pages website.
+The CRM and public inquiry endpoint both use `DATABASE_URL` and the verified
+Aiven CA configuration. `NEON_DATABASE_URL` does not override this connection.
+The setup command applies all SQL files in `database/migrations/`, in order,
+inside one transaction. It creates the inquiry, leads, messages, admin users,
+products, activity logs and analytics session tables. It does not seed an admin
+account or delete existing data.
 
-Repository **Actions secrets**:
-
-- `DATABASE_URL`: Aiven PostgreSQL connection URL, including credentials.
-- `DATABASE_CA_CERT`: complete Aiven CA certificate in PEM format.
-
-Repository **Actions variables**:
-
-- `NEXT_PUBLIC_SITE_URL`: `https://averixlabs.in`.
-- `NEXT_PUBLIC_INQUIRY_API_URL`: the real HTTPS inquiry endpoint on your backend,
-  such as `https://YOUR_BACKEND_DOMAIN/api/inquiries`. This URL is public.
-- `GOOGLE_SITE_VERIFICATION`: optional Search Console verification code.
-
-The Pages workflow only builds the frontend and never receives the database
-secrets. `npm run build:pages` stages a clean frontend without API routes or local
-`.env` files, builds HTML into `out/`, and enables unoptimized images for static
-hosting. It requires a valid HTTPS `NEXT_PUBLIC_INQUIRY_API_URL`; a missing URL
-fails the build rather than publishing an unusable form. The workflow assumes
-the configured custom domain; set the repository Pages domain and DNS accordingly.
-
-On the backend server, install Node.js 22+, install dependencies with `npm ci`,
-and provide `DATABASE_URL`, `DATABASE_CA_CERT` and
-`INQUIRY_ALLOWED_ORIGINS=https://averixlabs.in` as private runtime environment
-variables. Build using `npm run build` with `BUILD_TARGET` unset, then run
-`npm start` under your server's process manager behind an HTTPS reverse proxy.
-Leave `NEXT_PUBLIC_INQUIRY_API_URL` unset on this backend build. The form endpoint
-is `/api/inquiries`; it accepts JSON POST requests and responds to CORS preflight
-requests only for configured origins and its own origin. To serve both the apex
-and www domains without a redirect, include both origins, separated by commas.
-
-The manually triggered **Set up Aiven inquiry table** workflow uses the two
-GitHub database secrets to create the table and indexes without deleting data.
-It does not deploy a server. SSH deployment credentials and automated backend
-deployment must be configured for the actual server before production use.
-Do not put database credentials into any `NEXT_PUBLIC_` variable or static asset.
+Both contact entrypoints validate input and save a lead, its message and an
+inquiry history record in one transaction. If any insert fails, all three are
+rolled back. Optional Telegram notification happens only after a successful
+save through the contact server action.

@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     // We only need unoptimized images if doing static export
     unoptimized: isPagesExport,
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 100],
     remotePatterns: [],
   },
   compress: true,

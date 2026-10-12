@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { submitContact } from "@/app/(public)/contact/actions";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -13,43 +14,32 @@ export function ContactForm() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const data = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      company: formData.get("company") as string,
-      project_type: formData.get("project_type") as string,
-      message: formData.get("message") as string,
-    };
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_INQUIRY_API_URL || "/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await submitContact(formData);
 
-      if (!response.ok) {
-        throw new Error("Failed to send message");
+      if (response.error) {
+        setError(response.error);
+      } else {
+        setIsSuccess(true);
+        form.reset();
       }
-
-      setIsSuccess(true);
-      form.reset();
     } catch (err) {
       console.error(err);
-      setError("Something went wrong. Please try again or contact us directly at averixlabs001@gmail.com.");
+      setError("Something went wrong. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const inputClass =
-    "w-full px-4 py-3 rounded-lg border border-border bg-secondary text-foreground placeholder-muted-foreground focus:border-[#4f46e5] focus:ring-1 focus:ring-[#4f46e5] outline-none transition-all text-sm";
+    "w-full px-4 py-3 rounded-lg border border-border bg-secondary text-foreground placeholder-muted-foreground focus:border-white focus:ring-1 focus:ring-white outline-none transition-all text-sm";
   const labelClass = "block text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider";
 
   if (isSuccess) {
     return (
       <div className="bg-secondary border border-border text-foreground p-8 rounded-xl text-center">
-        <h3 className="text-xl font-bold mb-2">Message received successfully.</h3>
+        <h3 className="text-xl font-bold mb-2">Message sent successfully.</h3>
         <p className="text-muted-foreground text-sm">
           We&apos;ll get back to you shortly.
         </p>
@@ -60,7 +50,7 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 space-y-6">
       {error && (
-        <div className="bg-red-900/20 border border-red-500/50 text-red-400 text-sm p-4 rounded-lg">
+        <div className="bg-red-900/20 border border-red-500/50 text-danger text-sm p-4 rounded-lg">
           {error}
         </div>
       )}
@@ -68,18 +58,18 @@ export function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="name" className={labelClass}>Name *</label>
-          <input required type="text" id="name" name="name" className={inputClass} maxLength={200} placeholder="Jane Doe" />
+          <input required type="text" id="name" name="name" className={inputClass} placeholder="Jane Doe" />
         </div>
         <div>
           <label htmlFor="email" className={labelClass}>Email *</label>
-          <input required type="email" id="email" name="email" className={inputClass} maxLength={254} placeholder="jane@example.com" />
+          <input required type="email" id="email" name="email" className={inputClass} placeholder="jane@example.com" />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="company" className={labelClass}>Company</label>
-          <input type="text" id="company" name="company" className={inputClass} maxLength={200} placeholder="Optional" />
+          <input type="text" id="company" name="company" className={inputClass} placeholder="Optional" />
         </div>
         <div>
           <label htmlFor="project_type" className={labelClass}>Project Type *</label>
@@ -103,7 +93,6 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={4}
-          maxLength={10000}
           className={inputClass}
           placeholder="Tell us about your project..."
         />
@@ -112,7 +101,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full md:w-auto bg-[#4f46e5] hover:bg-[#4338ca] disabled:opacity-50 text-white font-medium px-8 py-3 rounded-lg text-sm transition-colors cursor-pointer"
+        className="w-full md:w-auto bg-foreground text-background hover:opacity-90 disabled:opacity-50 font-medium px-8 py-3 rounded-lg text-sm transition-colors cursor-pointer"
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>
