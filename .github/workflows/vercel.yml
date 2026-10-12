@@ -1,0 +1,104 @@
+name: Vercel CI & Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - dev2
+      - development
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  build-and-deploy:
+    name: Build, Validate & Deploy to Vercel
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Restore Next.js Build Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('src/**/*.[jt]s', 'src/**/*.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+
+      - name: Next.js Production Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://averixlabs.in' }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+
+      - name: Run ESLint Check (Non-blocking)
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Deploy via Vercel CLI (Production)
+        if: >-
+          github.event_name != 'pull_request' &&
+          github.ref == 'refs/heads/main' &&
+          secrets.VERCEL_TOKEN != '' &&
+          secrets.VERCEL_ORG_ID != '' &&
+          secrets.VERCEL_PROJECT_ID != ''
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          npm install --global vercel@latest
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+
+      - name: Deploy via Vercel CLI (Preview)
+        if: >-
+          (github.event_name == 'pull_request' || github.ref != 'refs/heads/main') &&
+          secrets.VERCEL_TOKEN != '' &&
+          secrets.VERCEL_ORG_ID != '' &&
+          secrets.VERCEL_PROJECT_ID != ''
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          npm install --global vercel@latest
+          vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+          vercel build --token="$VERCEL_TOKEN"
+          vercel deploy --prebuilt --token="$VERCEL_TOKEN"
+
+      - name: Trigger Vercel Deploy Hook
+        if: >-
+          github.event_name != 'pull_request' &&
+          github.ref == 'refs/heads/main' &&
+          secrets.VERCEL_TOKEN == '' &&
+          secrets.VERCEL_DEPLOY_HOOK_URL != ''
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
+
+      - name: Vercel Integration Status
+        if: secrets.VERCEL_TOKEN == '' && secrets.VERCEL_DEPLOY_HOOK_URL == ''
+        run: |
+          echo "Build validated successfully. Vercel GitHub integration (vercel[bot]) handles automatic deployment."
+          echo "Optional: Set VERCEL_TOKEN + VERCEL_ORG_ID + VERCEL_PROJECT_ID (or VERCEL_DEPLOY_HOOK_URL) in GitHub Secrets to trigger CLI/Hook deployments directly from this workflow."
