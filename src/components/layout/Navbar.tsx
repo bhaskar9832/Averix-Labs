@@ -7,9 +7,10 @@ import { Menu, X } from "lucide-react";
 import logoImg from "../../../public/images/logo.png";
 
 const navLinks = [
-  { name: "Products", href: "/products" },
-  { name: "Solutions", href: "/solutions" },
-  { name: "Technology", href: "/technology" },
+  { name: "Home", href: "/" },
+  { name: "Services", href: "/services" },
+  { name: "Results", href: "/results" },
+  { name: "Blogs", href: "/blog" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
@@ -46,7 +47,14 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:flex">
+          <div className="hidden md:flex items-center gap-3">
+             <Link
+              href="/jira"
+              className="bg-zinc-800/80 hover:bg-zinc-700 text-indigo-400 hover:text-indigo-300 border border-zinc-700/80 text-sm font-semibold px-4 py-2.5 rounded-lg transition-all flex items-center gap-2"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Jira Workspace</span>
+            </Link>
              <Link
               href="/contact"
               className="bg-[#4f46e5] hover:bg-[#4338ca] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors"
@@ -80,7 +88,14 @@ export function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <div className="pt-2">
+            <div className="pt-2 space-y-2">
+              <Link
+                href="/jira"
+                onClick={() => setIsOpen(false)}
+                className="block w-full text-center bg-zinc-800 hover:bg-zinc-700 text-indigo-400 font-semibold px-4 py-3 rounded-lg transition-colors border border-zinc-700"
+              >
+                Launch Jira Workspace
+              </Link>
               <Link
                 href="/contact"
                 onClick={() => setIsOpen(false)}

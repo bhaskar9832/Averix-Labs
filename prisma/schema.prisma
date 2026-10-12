@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email        String         @unique
+  passwordHash String         @map("password_hash")
+  fullName     String?        @map("full_name")
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  activityLogs ActivityLog[]
+
+  @@map("admin_users")
+}
+
+model Lead {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  firstName   String?   @map("first_name")
+  lastName    String?   @map("last_name")
+  fullName    String?   @map("full_name")
+  email       String
+  company     String?
+  projectType String?   @map("project_type")
+  source      String?
+  status      String    @default("NEW")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  messages    Message[]
+
+  @@map("leads")
+}
+
+model Message {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  leadId    String?  @map("lead_id") @db.Uuid
+  name      String?
+  email     String?
+  company   String?
+  project   String?
+  message   String?
+  status    String   @default("UNREAD")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  lead      Lead?    @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model Product {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  slug      String   @unique
+  category  String?
+  status    String   @default("DRAFT")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@map("products")
+}
+
+model ActivityLog {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  adminUserId String?    @map("admin_user_id") @db.Uuid
+  action      String
+  entityType  String?    @map("entity_type")
+  entityId    String?    @map("entity_id")
+  createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+
+  @@map("activity_logs")
+}
+
+model AnalyticsSession {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  visitorId   String   @map("visitor_id")
+  browser     String?
+  utmSource   String?  @map("utm_source")
+  utmMedium   String?  @map("utm_medium")
+  utmCampaign String?  @map("utm_campaign")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@map("analytics_sessions")
+}

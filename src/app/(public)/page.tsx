@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
+import { services } from "@/data/services";
 import { siteConfig } from "@/config/site";
 
 export default function Home() {
@@ -98,32 +99,35 @@ export default function Home() {
       <section className="py-24 bg-[#050505] border-b border-[#262626] px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">02 / SERVICES</div>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
-            What we can build together.
-          </h2>
-          <p className="text-xl text-[#94a3b8] max-w-3xl mb-16">
-            Choose a focused engagement or bring us in across the full lifecycle.
-          </p>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+            <div>
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
+                Everything you need.<br />Under one roof.
+              </h2>
+              <p className="text-xl text-[#94a3b8] max-w-2xl">
+                From building your website to AI-optimizing your entire business — 15 services, one team, zero outsourcing.
+              </p>
+            </div>
+            <Link href="/services" className="shrink-0 bg-[#4f46e5] hover:bg-[#4338ca] text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm whitespace-nowrap">
+              See All 15 Services →
+            </Link>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { num: "01", title: "Product discovery", desc: "User journeys, priorities, feature scope, and a pragmatic roadmap.", tags: "Briefs • workflows • MVP definition" },
-              { num: "02", title: "Web applications", desc: "Responsive customer portals, marketplaces, dashboards, and admin tools.", tags: "React • TypeScript • modern UI" },
-              { num: "03", title: "Backend & APIs", desc: "Role-based services, business rules, integrations, and reliable data models.", tags: "Node/Express • Python/Flask • REST" },
-              { num: "04", title: "AI & document tools", desc: "Document extraction, OCR, structured generation, and human-facing AI workflows.", tags: "Gemini • Tesseract • PyMuPDF" },
-              { num: "05", title: "Operations software", desc: "Billing, stock, customer records, ledgers, reports, and process automation.", tags: "PostgreSQL • transactions • reporting" },
-              { num: "06", title: "Experience-led sites", desc: "Distinctive interactive web experiences with content, media, and motion.", tags: "Storytelling • media • interaction" }
-            ].map((srv, i) => (
-              <div key={i} className="bg-[#0a0a0a] border border-[#262626] rounded-2xl p-8 flex flex-col h-full">
-                <div className="w-10 h-10 rounded-full bg-[#4f46e5]/10 text-[#4f46e5] flex items-center justify-center font-bold mb-6">
-                  {srv.num}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {services.map((srv, i) => (
+              <Link
+                key={i}
+                href={`/services/${srv.slug}`}
+                className="bg-[#0a0a0a] border border-[#262626] hover:border-[#4f46e5]/40 rounded-xl p-5 flex items-center gap-4 group transition-all duration-200 hover:bg-[#0f0f0f]"
+              >
+                <div className="w-11 h-11 rounded-xl bg-[#121212] border border-[#262626] flex items-center justify-center text-xl flex-shrink-0 group-hover:border-[#4f46e5]/30 transition-colors">
+                  {srv.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">{srv.title}</h3>
-                <p className="text-[#94a3b8] mb-8 flex-grow">{srv.desc}</p>
-                <div className="pt-4 border-t border-[#262626] text-xs font-bold text-[#4f46e5] uppercase tracking-wider">
-                  {srv.tags}
+                <div className="min-w-0">
+                  <div className="text-white font-semibold text-sm truncate group-hover:text-[#c7d2fe] transition-colors">{srv.title}</div>
+                  <div className="text-[#64748b] text-xs mt-0.5 truncate">{srv.tags}</div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -142,10 +146,10 @@ export default function Home() {
 
           <div className="space-y-6 mb-16">
             {[
-              { category: "INTERFACE", tech: "React, Vite, TypeScript, Tailwind CSS, React Native / Expo", desc: "Clear, responsive experiences across web and mobile." },
-              { category: "APPLICATION", tech: "Node.js, Express, Flask, REST APIs, JWT, Zod", desc: "Business logic and secure role-aware workflows." },
-              { category: "INTELLIGENCE", tech: "Gemini API, OCR, PDF extraction, AI-assisted content generation", desc: "Useful automation around documents and knowledge." },
-              { category: "DATA & DELIVERY", tech: "PostgreSQL, Supabase, Docker, Git, CI workflows", desc: "Structured data, reproducible builds, and handoff-ready code." }
+              { category: "FRONTEND & MOBILE", tech: "Modern Frameworks & Native Languages", desc: "Clear, responsive experiences across web and mobile using React, Angular, Vue, Swift, Kotlin, or any framework your project demands." },
+              { category: "BACKEND & API", tech: "Polyglot Application Logic", desc: "Business logic and secure workflows built in Node.js, Python, Go, Java, C#, or whatever language fits your enterprise ecosystem." },
+              { category: "INTELLIGENCE & AI", tech: "Agnostic AI Integrations", desc: "Connecting your systems to the best LLMs and AI services, from OpenAI and Gemini to open-source models hosted privately." },
+              { category: "DATA & INFRASTRUCTURE", tech: "Any Cloud, Any Database", desc: "Structured data and reproducible builds. We deploy on AWS, GCP, Azure, and work with SQL, NoSQL, and vector databases." }
             ].map((stack, i) => (
               <div key={i} className="bg-[#050505] border border-[#262626] rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-6">
                 <div className="w-1.5 h-16 bg-[#4f46e5] rounded-full hidden md:block"></div>
@@ -167,36 +171,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── PORTFOLIO ─── */}
+      {/* ─── RESULTS PREVIEW ─── */}
       <section className="py-24 bg-[#050505] border-b border-[#262626] px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">04 / PORTFOLIO</div>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
-            Selected product work.
-          </h2>
-          <p className="text-xl text-[#94a3b8] max-w-3xl mb-16">
-            These projects show range across marketplaces, AI learning, business operations, storytelling, and product systems design.
-          </p>
+          <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">04 / RESULTS</div>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+            <div>
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
+                Numbers that speak.
+              </h2>
+              <p className="text-xl text-[#94a3b8] max-w-2xl">
+                Real outcomes from real clients. No projections. No fluff.
+              </p>
+            </div>
+            <Link href="/results" className="shrink-0 bg-transparent border border-[#262626] hover:border-[#4f46e5]/50 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm whitespace-nowrap">
+              View Full Case Studies →
+            </Link>
+          </div>
 
-          <div className="space-y-6">
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             {[
-              { name: "RENT EASY", title: "Student accommodation platform", desc: "Discovery, listings, booking requests, role-aware dashboards", tags: "Public code + project document" },
-              { name: "STUDYAI / AI-TUTION", title: "Document-to-learning application", desc: "OCR, summaries, flashcards, quizzes, video recommendations", tags: "Public repositories" },
-              { name: "GASFLOW", title: "LPG distribution workspace", desc: "Customers, cylinder stock, billing, payments, ledgers, reports", tags: "Local build in progress" },
-              { name: "PUJAKOTHA", title: "Interactive cultural microsite", desc: "Day-led storytelling, themed visuals, music, chat interface", tags: "Public code" },
-              { name: "IMME", title: "Mobile self-coaching experience", desc: "Onboarding, check-ins, life zones, activity logging, insights", tags: "App screens + design work" }
-            ].map((proj, i) => (
-              <div key={i} className="bg-[#0a0a0a] border border-[#262626] rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-6">
-                <div className="w-1.5 h-16 bg-[#4f46e5] rounded-full hidden md:block"></div>
-                <div>
-                  <div className="text-xs font-bold text-[#4f46e5] mb-2 uppercase tracking-widest">{proj.name}</div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{proj.title}</h3>
-                  <p className="text-[#94a3b8] mb-6">{proj.desc}</p>
-                  <span className="inline-block bg-[#121212] border border-[#262626] text-[#94a3b8] text-xs font-semibold px-3 py-1 rounded-full">
-                    {proj.tags}
-                  </span>
-                </div>
+              { value: "10X", label: "Average Revenue Growth", icon: "📈" },
+              { value: "500%", label: "Lead Generation Increase", icon: "🎯" },
+              { value: "8.5:1", label: "Average ROAS", icon: "💰" },
+              { value: "65%", label: "Cost Reduction via AI", icon: "⚡" },
+            ].map((stat, i) => (
+              <div key={i} className="bg-[#0a0a0a] border border-[#262626] hover:border-[#4f46e5]/30 rounded-2xl p-6 md:p-8 text-center group transition-all duration-300">
+                <div className="text-2xl mb-3">{stat.icon}</div>
+                <div className="text-3xl md:text-5xl font-bold text-[#4f46e5] font-serif mb-2">{stat.value}</div>
+                <div className="text-[#64748b] text-xs font-medium leading-snug">{stat.label}</div>
               </div>
+            ))}
+          </div>
+
+          {/* Teaser case study strip */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { badge: "E-COMMERCE", title: "D2C Brand scales from ₹2L to ₹18L/month", metric: "9X Revenue", color: "text-orange-400" },
+              { badge: "LOCAL BUSINESS", title: "Restaurant chain ranks Top 3 in Local Pack across 5 cities", metric: "280% More Calls", color: "text-green-400" },
+              { badge: "SAAS", title: "Startup launches with AI onboarding and hits 500 users in 60 days", metric: "0 → 500 Users", color: "text-blue-400" },
+            ].map((cs, i) => (
+              <Link
+                key={i}
+                href="/results"
+                className="bg-[#0a0a0a] border border-[#262626] hover:border-[#4f46e5]/40 rounded-xl p-6 group transition-all duration-200"
+              >
+                <div className={`text-xs font-bold ${cs.color} mb-3 uppercase tracking-wider`}>{cs.badge}</div>
+                <p className="text-white font-semibold text-sm mb-4 group-hover:text-[#c7d2fe] transition-colors leading-snug">{cs.title}</p>
+                <div className={`text-xl font-bold ${cs.color} font-serif`}>{cs.metric}</div>
+              </Link>
             ))}
           </div>
         </div>
@@ -269,11 +293,7 @@ export default function Home() {
                   <p className="text-[#94a3b8] text-lg leading-relaxed mb-8 max-w-3xl">
                     {member.description}
                   </p>
-                  <div>
-                    <a href={member.github} target="_blank" rel="noreferrer" className="text-sm font-bold text-[#4f46e5] hover:text-white underline underline-offset-4 transition-colors">
-                      GitHub profile
-                    </a>
-                  </div>
+
                 </div>
               </div>
             ))}
@@ -316,14 +336,7 @@ export default function Home() {
                 </a>
               </div>
 
-              <div className="flex gap-8">
-                 <a href={siteConfig.team[0].github} target="_blank" rel="noreferrer" className="text-sm font-bold text-white hover:text-[#4f46e5] underline underline-offset-4 transition-colors">
-                   Sourav on GitHub
-                 </a>
-                 <a href={siteConfig.team[1].github} target="_blank" rel="noreferrer" className="text-sm font-bold text-white hover:text-[#4f46e5] underline underline-offset-4 transition-colors">
-                   Bhaskar on GitHub
-                 </a>
-              </div>
+
             </div>
 
             <div>

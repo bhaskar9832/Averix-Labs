@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { submitContact } from "@/app/(public)/contact/actions";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -13,44 +14,26 @@ export function ContactForm() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const data = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      company: formData.get("company") as string,
-      project_type: formData.get("project_type") as string,
-      message: formData.get("message") as string,
-    };
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/averixlabs001@gmail.com", {
-        method: "POST",
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            ...data,
-            _subject: `New Project Inquiry from ${data.name}`,
-            _template: "table"
-        })
-      });
+      const response = await submitContact(formData);
 
-      if (!response.ok) {
-        throw new Error("Failed to send message");
+      if (response.error) {
+        setError(response.error);
+      } else {
+        setIsSuccess(true);
+        form.reset();
       }
-
-      setIsSuccess(true);
-      form.reset();
     } catch (err) {
       console.error(err);
-      setError("Something went wrong. Please try again or contact us directly at averixlabs001@gmail.com.");
+      setError("Something went wrong. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const inputClass =
-    "w-full px-4 py-3 rounded-lg border border-[#262626] bg-[#121212] text-[#f8fafc] placeholder-[#64748b] focus:border-[#4f46e5] focus:ring-1 focus:ring-[#4f46e5] outline-none transition-all text-sm";
+    "w-full px-4 py-3 rounded-lg border border-[#262626] bg-[#121212] text-[#f8fafc] placeholder-[#64748b] focus:border-white focus:ring-1 focus:ring-white outline-none transition-all text-sm";
   const labelClass = "block text-xs font-medium text-[#94a3b8] mb-2 uppercase tracking-wider";
 
   if (isSuccess) {
@@ -118,7 +101,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full md:w-auto bg-[#4f46e5] hover:bg-[#4338ca] disabled:opacity-50 text-white font-medium px-8 py-3 rounded-lg text-sm transition-colors cursor-pointer"
+        className="w-full md:w-auto bg-white text-black hover:bg-gray-200 disabled:opacity-50 font-medium px-8 py-3 rounded-lg text-sm transition-colors cursor-pointer"
       >
         {isSubmitting ? "Sending..." : "Send Message"}
       </button>
