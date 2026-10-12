@@ -20,12 +20,14 @@ export const siteConfig = {
       role: "Senior Backend Engineer",
       description: "Python services, APIs, React applications, databases, and AI-assisted tools.",
       image: souravImg,
+      github: "https://github.com/sourav03561"
     },
     {
       name: "Bhaskar Sarkar",
       role: "Backend Engineer",
       description: "React, Node.js, Java, and Spring Boot.",
       image: bhaskarImg,
+      github: "https://github.com/bhaskar9832"
     }
   ]
 }
