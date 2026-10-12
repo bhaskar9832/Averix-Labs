@@ -5,10 +5,10 @@ export const metadata = {
 
 export default function TechnologyPage() {
   const stack = [
-    { category: "FRONTEND & MOBILE", tech: "Modern Frameworks & Native Languages", desc: "Clear, responsive experiences across web and mobile using React, Angular, Vue, Swift, Kotlin, or any framework your project demands." },
-    { category: "BACKEND & API", tech: "Polyglot Application Logic", desc: "Business logic and secure workflows built in Node.js, Python, Go, Java, C#, or whatever language fits your enterprise ecosystem." },
-    { category: "DATA & INFRASTRUCTURE", tech: "Any Cloud, Any Database", desc: "Structured data and reproducible builds. We deploy on AWS, GCP, Azure, and work with SQL, NoSQL, and vector databases." },
-    { category: "INTELLIGENCE & AI", tech: "Agnostic AI Integrations", desc: "Connecting your systems to the best LLMs and AI services, from OpenAI and Gemini to open-source models hosted privately." }
+    { category: "INTERFACE", tech: "React, Vite, TypeScript, Tailwind CSS, React Native / Expo", desc: "Clear, responsive experiences across web and mobile." },
+    { category: "APPLICATION", tech: "Node.js, Express, Flask, REST APIs, JWT, Zod", desc: "Business logic and secure role-aware workflows." },
+    { category: "INTELLIGENCE", tech: "Gemini API, OCR, PDF extraction, AI-assisted content generation", desc: "Useful automation around documents and knowledge." },
+    { category: "DATA & DELIVERY", tech: "PostgreSQL, Supabase, Docker, Git, CI workflows", desc: "Structured data, reproducible builds, and handoff-ready code." }
   ];
 
   return (

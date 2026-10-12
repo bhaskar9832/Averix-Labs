@@ -6,10 +6,10 @@ export const metadata = {
 export default function SolutionsPage() {
   const capabilities = [
     { num: "01", title: "Product discovery", desc: "User journeys, priorities, feature scope, and a pragmatic roadmap.", tags: "Briefs • workflows • MVP definition" },
-    { num: "02", title: "Web applications", desc: "Responsive customer portals, marketplaces, dashboards, and admin tools.", tags: "Modern Frameworks • SPAs • Responsive UI" },
-    { num: "03", title: "Backend & APIs", desc: "Role-based services, business rules, integrations, and reliable data models.", tags: "Polyglot Backends • Microservices • REST/GraphQL" },
-    { num: "04", title: "AI & document tools", desc: "Document extraction, OCR, structured generation, and human-facing AI workflows.", tags: "Any LLM • Computer Vision • Document Parsing" },
-    { num: "05", title: "Operations software", desc: "Billing, stock, customer records, ledgers, reports, and process automation.", tags: "SQL/NoSQL • Transactions • Analytics" },
+    { num: "02", title: "Web applications", desc: "Responsive customer portals, marketplaces, dashboards, and admin tools.", tags: "React • TypeScript • modern UI" },
+    { num: "03", title: "Backend & APIs", desc: "Role-based services, business rules, integrations, and reliable data models.", tags: "Node/Express • Python/Flask • REST" },
+    { num: "04", title: "AI & document tools", desc: "Document extraction, OCR, structured generation, and human-facing AI workflows.", tags: "Gemini • Tesseract • PyMuPDF" },
+    { num: "05", title: "Operations software", desc: "Billing, stock, customer records, ledgers, reports, and process automation.", tags: "PostgreSQL • transactions • reporting" },
     { num: "06", title: "Experience-led sites", desc: "Distinctive interactive web experiences with content, media, and motion.", tags: "Storytelling • media • interaction" }
   ];
 
