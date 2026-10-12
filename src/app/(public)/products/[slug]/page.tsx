@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProductBySlug, products } from "@/lib/data";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return products.map((product) => ({
     slug: product.slug,
@@ -136,8 +138,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <p className="text-2xl text-white font-serif italic mb-8 max-w-2xl mx-auto leading-relaxed">
             &quot;{product.philosophy}&quot;
           </p>
-          <a href="#" className="inline-block bg-[#4f46e5] hover:bg-[#4338ca] text-white font-semibold px-8 py-4 rounded-lg transition-colors">
-            {product.ctaText}
+          <a href="/contact" className="inline-block bg-[#4f46e5] hover:bg-[#4338ca] text-white font-semibold px-8 py-4 rounded-lg transition-colors">
+            Discuss a Similar Project
           </a>
         </div>
       </div>

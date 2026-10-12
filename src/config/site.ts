@@ -7,7 +7,7 @@ export const siteConfig = {
   url: "https://averixlabs.in",
   email: "averixlabs001@gmail.com",
   phone: "9832560193",
-  whatsapp: "9832560193",
+  whatsapp: "919832560193",
   address: "India",
   links: {
     twitter: "https://twitter.com",

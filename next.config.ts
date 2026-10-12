@@ -1,10 +1,13 @@
 import type { NextConfig } from "next";
 
+const isPagesExport = process.env.BUILD_TARGET === "export";
+
 const nextConfig: NextConfig = {
+  ...(isPagesExport ? { output: "export", trailingSlash: true } : {}),
   reactStrictMode: true,
   images: {
     // We only need unoptimized images if doing static export
-    unoptimized: false,
+    unoptimized: isPagesExport,
     formats: ["image/avif", "image/webp"],
     remotePatterns: [],
   },

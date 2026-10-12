@@ -1,17 +1,11 @@
+import { services } from "@/data/services";
 export const metadata = {
   title: "Solutions — Averix Labs",
   description: "Product-building capabilities covering the entire SaaS architectural spectrum.",
 };
 
 export default function SolutionsPage() {
-  const capabilities = [
-    { num: "01", title: "Product discovery", desc: "User journeys, priorities, feature scope, and a pragmatic roadmap.", tags: "Briefs • workflows • MVP definition" },
-    { num: "02", title: "Web applications", desc: "Responsive customer portals, marketplaces, dashboards, and admin tools.", tags: "Modern Frameworks • SPAs • Responsive UI" },
-    { num: "03", title: "Backend & APIs", desc: "Role-based services, business rules, integrations, and reliable data models.", tags: "Polyglot Backends • Microservices • REST/GraphQL" },
-    { num: "04", title: "AI & document tools", desc: "Document extraction, OCR, structured generation, and human-facing AI workflows.", tags: "Any LLM • Computer Vision • Document Parsing" },
-    { num: "05", title: "Operations software", desc: "Billing, stock, customer records, ledgers, reports, and process automation.", tags: "SQL/NoSQL • Transactions • Analytics" },
-    { num: "06", title: "Experience-led sites", desc: "Distinctive interactive web experiences with content, media, and motion.", tags: "Storytelling • media • interaction" }
-  ];
+
 
   return (
     <div className="min-h-screen bg-[#050505] pt-32 pb-24 px-6 md:px-12 lg:px-20 selection:bg-[#4f46e5] selection:text-white">
@@ -25,13 +19,13 @@ export default function SolutionsPage() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-          {capabilities.map((srv, i) => (
+          {services.map((srv, i) => (
             <div key={i} className="bg-[#0a0a0a] border border-[#262626] rounded-2xl p-8 flex flex-col h-full hover:border-[#4f46e5]/40 transition-colors">
               <div className="w-12 h-12 rounded-full bg-[#4f46e5]/10 text-[#4f46e5] flex items-center justify-center font-bold mb-8 text-lg">
-                {srv.num}
+                {String(i + 1).padStart(2, "0")}
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">{srv.title}</h3>
-              <p className="text-[#94a3b8] mb-12 flex-grow text-lg leading-relaxed">{srv.desc}</p>
+              <p className="text-[#94a3b8] mb-12 flex-grow text-lg leading-relaxed">{srv.description}</p>
               <div className="pt-6 border-t border-[#262626] text-xs font-bold text-[#4f46e5] uppercase tracking-wider">
                 {srv.tags}
               </div>

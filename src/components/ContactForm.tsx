@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { submitContact } from "@/app/(public)/contact/actions";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,10 +15,15 @@ export function ContactForm() {
     const formData = new FormData(form);
 
     try {
-      const response = await submitContact(formData);
+      const result = await fetch(process.env.NEXT_PUBLIC_INQUIRY_API_URL || "/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(formData)),
+      });
+      const response = await result.json();
 
-      if (response.error) {
-        setError(response.error);
+      if (!result.ok || !response.success) {
+        setError(response.error || "Unable to save your message. Please try again.");
       } else {
         setIsSuccess(true);
         form.reset();
@@ -58,18 +62,18 @@ export function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="name" className={labelClass}>Name *</label>
-          <input required type="text" id="name" name="name" className={inputClass} placeholder="Jane Doe" />
+          <input required type="text" id="name" name="name" className={inputClass} maxLength={200} placeholder="Jane Doe" />
         </div>
         <div>
           <label htmlFor="email" className={labelClass}>Email *</label>
-          <input required type="email" id="email" name="email" className={inputClass} placeholder="jane@example.com" />
+          <input required type="email" id="email" name="email" className={inputClass} maxLength={254} placeholder="jane@example.com" />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="company" className={labelClass}>Company</label>
-          <input type="text" id="company" name="company" className={inputClass} placeholder="Optional" />
+          <input type="text" id="company" name="company" className={inputClass} maxLength={200} placeholder="Optional" />
         </div>
         <div>
           <label htmlFor="project_type" className={labelClass}>Project Type *</label>
@@ -93,6 +97,7 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={4}
+          maxLength={10000}
           className={inputClass}
           placeholder="Tell us about your project..."
         />
