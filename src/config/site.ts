@@ -3,8 +3,8 @@ import bhaskarImg from "../../public/images/bhaskar.png";
 
 export const siteConfig = {
   name: "Averix Labs",
-  description: "Digital products that connect strong engineering with a clear reason to exist.",
-  url: "https://averixlabs.in",
+  description: "Averix Labs builds custom software, web applications, SaaS platforms and AI tools for startups and businesses in India. Discuss your project with our team.",
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://averixlabs.in").replace(/\/+$/, ""),
   email: "averixlabs001@gmail.com",
   phone: "9832560193",
   whatsapp: "919832560193",

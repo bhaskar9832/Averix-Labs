@@ -33,14 +33,14 @@ export function ContactForm() {
   };
 
   const inputClass =
-    "w-full px-4 py-3 rounded-lg border border-[#262626] bg-[#121212] text-[#f8fafc] placeholder-[#64748b] focus:border-white focus:ring-1 focus:ring-white outline-none transition-all text-sm";
-  const labelClass = "block text-xs font-medium text-[#94a3b8] mb-2 uppercase tracking-wider";
+    "w-full px-4 py-3 rounded-lg border border-border bg-secondary text-foreground placeholder-muted-foreground focus:border-white focus:ring-1 focus:ring-white outline-none transition-all text-sm";
+  const labelClass = "block text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider";
 
   if (isSuccess) {
     return (
-      <div className="bg-[#121212] border border-[#262626] text-[#f8fafc] p-8 rounded-xl text-center">
+      <div className="bg-secondary border border-border text-foreground p-8 rounded-xl text-center">
         <h3 className="text-xl font-bold mb-2">Message sent successfully.</h3>
-        <p className="text-[#94a3b8] text-sm">
+        <p className="text-muted-foreground text-sm">
           We&apos;ll get back to you shortly.
         </p>
       </div>
@@ -48,7 +48,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-[#0a0a0a] border border-[#262626] rounded-xl p-8 space-y-6">
+    <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 space-y-6">
       {error && (
         <div className="bg-red-900/20 border border-red-500/50 text-red-400 text-sm p-4 rounded-lg">
           {error}

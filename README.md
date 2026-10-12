@@ -117,3 +117,29 @@ at runtime. The separate backend must be running before publishing the form.
 The service catalog uses the six capabilities already described by this site.
 Links to unavailable blog, results and Jira pages are removed or redirected to
 existing portfolio pages. Analytics tracking is not enabled on this branch.
+
+## Search visibility after deployment
+
+Use `https://averixlabs.in` as the primary URL (or set `NEXT_PUBLIC_SITE_URL`
+consistently before building). Page canonicals, sitemap entries and business
+structured data share that setting. Deploy on a Next.js server host so inquiries
+reach Aiven, and redirect any other domain to the primary domain in your hosting
+settings. The frontend can also be exported to GitHub Pages, with a separate
+backend server for Aiven.
+
+Verify domain ownership in [Google Search Console](https://search.google.com/search-console).
+If using HTML verification, set `GOOGLE_SITE_VERIFICATION` to the verification
+code and rebuild. Submit `/sitemap.xml`, then inspect the home, services, contact
+and portfolio pages. Configure a Google Business Profile if the business meets
+Google's eligibility rules; keep the business name and contact information
+consistent. No account registration or sitemap submission is performed by this
+repository.
+
+Each public page has its own title, description, canonical and social preview.
+The sitemap includes all portfolio pages. Admin pages carry `noindex` metadata;
+this does not provide authentication or restrict access. Organization schema
+contains known business details without fabricated reviews, opening hours or
+street addresses. Continue adding useful project writeups as work is delivered.
+SEO changes help discovery but do not guarantee rankings.
+
+Guidance: [Google's SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide).

@@ -1,3 +1,4 @@
+import { StructuredData } from "@/components/StructuredData";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/config/site";
@@ -11,6 +12,22 @@ export default function PublicLayout({
   return (
     <div className="flex flex-col min-h-screen">
       <AnalyticsTracker />
+      <StructuredData data={{
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization", "@id": `${siteConfig.url}/#organization`,
+            name: siteConfig.name, url: siteConfig.url,
+            description: siteConfig.description,
+            logo: `${siteConfig.url}/images/logo.png`,
+            email: siteConfig.email, telephone: `+91${siteConfig.phone}`,
+            address: { "@type": "PostalAddress", addressCountry: "IN" },
+            sameAs: [siteConfig.links.github],
+            contactPoint: { "@type": "ContactPoint", telephone: `+91${siteConfig.phone}`, email: siteConfig.email, contactType: "sales", availableLanguage: ["English"] },
+          },
+          { "@type": "WebSite", "@id": `${siteConfig.url}/#website`, url: siteConfig.url, name: siteConfig.name, publisher: { "@id": `${siteConfig.url}/#organization` } },
+        ],
+      }} />
       <Navbar />
       <main className="flex-1 pt-20">
         {children}
