@@ -191,3 +191,21 @@ Alternatively, keep Vercel's Git integration and add `DATABASE_URL` and
 select the required environments, then redeploy. A deploy hook only triggers a
 build; it does not transfer GitHub secrets. The workflow reports a warning when
 it cannot deploy rather than claiming that secrets were synchronized.
+
+### Diagnosing a failed contact submission
+
+A failed save returns a short reference number. Find that reference in the
+server's logs under `[Averix Labs] Contact save failed`. The log contains only
+the error code and whether a database URL is configured; it excludes submitted
+messages, connection strings and passwords.
+
+- `databaseConfigured: false`: set `DATABASE_URL` in the environment running the
+  application, then redeploy/restart it.
+- `28P01`: check the database username/password in that environment.
+- `42P01`: run `npm run db:setup` against the same database used by the server.
+- `ENOTFOUND`, `ECONNREFUSED` or a timeout: check the Aiven hostname, port,
+  service status and permitted network access.
+- Certificate errors: use the CA certificate belonging to that Aiven project.
+
+GitHub Actions logs and Vercel function logs are separate. A successful GitHub
+migration does not prove that the deployed function has the same configuration.

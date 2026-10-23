@@ -1,3 +1,4 @@
+import { logContactFailure } from '@/lib/contact-error.mjs';
 import { NextResponse } from 'next/server';
 import { saveContact, validateContact } from '@/lib/contact-store.mjs';
 
@@ -49,8 +50,8 @@ export async function POST(request: Request) {
   try {
     await saveContact(inquiry);
     return respond({ success: true }, 201);
-  } catch {
-    console.error('[Averix Labs] Failed to save inquiry');
-    return respond({ error: 'Unable to save your message. Please try again later.' }, 503);
+  } catch (error) {
+    const reference = logContactFailure(error);
+    return respond({ error: 'Unable to save your message. Please try again later.', reference }, 503);
   }
 }

@@ -1,15 +1,16 @@
 'use server'
 
 import { saveContact, validateContact } from '@/lib/contact-store.mjs';
+import { logContactFailure } from '@/lib/contact-error.mjs';
 
 export async function submitContact(formData: FormData) {
   const inquiry = validateContact(Object.fromEntries(formData));
   if (!inquiry) return { error: 'Please check your contact details and message.' };
   try {
     await saveContact(inquiry);
-  } catch {
-    console.error('[Averix Labs] Failed to save contact submission');
-    return { error: 'Failed to save your message. Please try again later.' };
+  } catch (error) {
+    const reference = logContactFailure(error);
+    return { error: `Failed to save your message. Please try again later. Reference: ${reference}` };
   }
   const { name, email, company, project_type, message } = inquiry;
 
