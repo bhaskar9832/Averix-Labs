@@ -157,3 +157,37 @@ Both contact entrypoints validate input and save a lead, its message and an
 inquiry history record in one transaction. If any insert fails, all three are
 rolled back. Optional Telegram notification happens only after a successful
 save through the contact server action.
+
+
+## Deploying GitHub database secrets to Vercel
+
+Repository secrets are available to GitHub Actions, not automatically to Vercel.
+To let `.github/workflows/vercel.yml` pass the existing Aiven secrets to the
+server functions, configure these repository values:
+
+| Name | Location | Value |
+| --- | --- | --- |
+| `DATABASE_URL` | GitHub Actions secret | Actual Aiven Service URI |
+| `DATABASE_CA_CERT` | GitHub Actions secret | Complete PEM CA certificate |
+| `VERCEL_TOKEN` | GitHub Actions secret | Token for the account managing the project |
+| `VERCEL_ORG_ID` | GitHub Actions secret or variable | Team ID (or account ID) owning the project |
+| `VERCEL_PROJECT_ID` | GitHub Actions secret or variable | Existing Vercel project ID |
+| `NEXT_PUBLIC_SITE_URL` | GitHub Actions variable | Primary website URL, defaults to `https://averixlabs.in` |
+| `INQUIRY_ALLOWED_ORIGINS` | GitHub Actions variable | Comma-separated permitted website origins |
+
+Find the project ID under Vercel Project Settings → General, and the team ID
+under Team Settings → General. Generate the token in Vercel Account Settings →
+Tokens. Never paste tokens into source files or commit `.vercel/project.json`.
+
+Push to `main` for production, or `frontend-update`, `dev2`, or `development`
+for a preview deployment. Pull requests run validation without deploying or
+changing the database. Configured push deployments run the repeatable database
+migrations, build the app, and supply the database secrets to Vercel's runtime.
+Preview deployments currently use the same Aiven secrets; configure a separate
+preview database if isolation is required.
+
+Alternatively, keep Vercel's Git integration and add `DATABASE_URL` and
+`DATABASE_CA_CERT` in the Vercel project's Environment Variables settings,
+select the required environments, then redeploy. A deploy hook only triggers a
+build; it does not transfer GitHub secrets. The workflow reports a warning when
+it cannot deploy rather than claiming that secrets were synchronized.
