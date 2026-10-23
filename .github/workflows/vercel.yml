@@ -6,10 +6,14 @@ on:
       - main
       - dev2
       - development
+      - frontend-update
   pull_request:
     branches:
       - main
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -43,6 +47,7 @@ jobs:
         run: npm ci --legacy-peer-deps || npm install --legacy-peer-deps
 
       - name: Ensure Aiven Database Schema (if DATABASE_URL secret is configured)
+        if: github.event_name != 'pull_request'
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_CA_CERT: ${{ secrets.DATABASE_CA_CERT }}
@@ -65,21 +70,35 @@ jobs:
         continue-on-error: true
 
       - name: Deploy or Sync with Vercel
+        if: github.event_name != 'pull_request'
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID || vars.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID || vars.VERCEL_PROJECT_ID }}
           VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_CA_CERT: ${{ secrets.DATABASE_CA_CERT }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://averixlabs.in' }}
+          INQUIRY_ALLOWED_ORIGINS: ${{ vars.INQUIRY_ALLOWED_ORIGINS || 'https://averixlabs.in' }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
           EVENT_NAME: ${{ github.event_name }}
           GIT_REF: ${{ github.ref }}
         run: |
+          set -euo pipefail
+          if { [ -n "$VERCEL_TOKEN" ] || [ -n "$VERCEL_ORG_ID" ] || [ -n "$VERCEL_PROJECT_ID" ]; } &&
+             { [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; }; then
+            echo "::error::Incomplete Vercel setup. Set VERCEL_TOKEN, VERCEL_ORG_ID and VERCEL_PROJECT_ID together."
+            exit 1
+          fi
           if [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ]; then
+            if [ -z "$DATABASE_URL" ] || [ -z "$DATABASE_CA_CERT" ]; then
+              echo "::error::DATABASE_URL and DATABASE_CA_CERT GitHub secrets are required for the Aiven deployment."
+              exit 1
+            fi
             npm install --global vercel@latest
-            ENV_ARGS=()
+            ENV_ARGS=(--env INQUIRY_ALLOWED_ORIGINS="$INQUIRY_ALLOWED_ORIGINS")
             if [ -n "$DATABASE_URL" ]; then
-              ENV_ARGS+=(--env DATABASE_URL="$DATABASE_URL" --build-env DATABASE_URL="$DATABASE_URL")
+              ENV_ARGS+=(--env DATABASE_URL="$DATABASE_URL")
             fi
             if [ -n "$DATABASE_CA_CERT" ]; then
               ENV_ARGS+=(--env DATABASE_CA_CERT="$DATABASE_CA_CERT")
@@ -87,16 +106,19 @@ jobs:
             if [ "$EVENT_NAME" != "pull_request" ] && [ "$GIT_REF" = "refs/heads/main" ]; then
               vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
               vercel build --prod --token="$VERCEL_TOKEN"
-              vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" "${ENV_ARGS[@]}"
+              vercel deploy --yes --prebuilt --prod --token="$VERCEL_TOKEN" "${ENV_ARGS[@]}"
             else
               vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
               vercel build --token="$VERCEL_TOKEN"
-              vercel deploy --prebuilt --token="$VERCEL_TOKEN" "${ENV_ARGS[@]}"
+              vercel deploy --yes --prebuilt --token="$VERCEL_TOKEN" "${ENV_ARGS[@]}"
             fi
           elif [ "$EVENT_NAME" != "pull_request" ] && [ "$GIT_REF" = "refs/heads/main" ] && [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            echo "::warning::A deploy hook cannot copy GitHub secrets. DATABASE_URL and DATABASE_CA_CERT must also be configured in the Vercel project dashboard."
             echo "Triggering Vercel Deploy Hook..."
             curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
           else
-            echo "Build validated successfully. Vercel GitHub integration (vercel[bot]) handles automatic deployment."
-            echo "Optional: Set VERCEL_TOKEN + VERCEL_ORG_ID + VERCEL_PROJECT_ID (or VERCEL_DEPLOY_HOOK_URL) in GitHub Secrets to trigger CLI/Hook deployments directly from this workflow."
+            echo "::warning::CI validation completed; this workflow did not deploy or copy database secrets to Vercel."
+            echo "Set VERCEL_TOKEN, VERCEL_ORG_ID and VERCEL_PROJECT_ID for CLI deployment, or set database variables directly in Vercel for Git integration deployments."
+            echo "### Vercel deployment not configured" >> "$GITHUB_STEP_SUMMARY"
+            echo "GitHub database secrets were used for schema setup only. Add the three Vercel credentials listed in README.md to deploy with these secrets." >> "$GITHUB_STEP_SUMMARY"
           fi
