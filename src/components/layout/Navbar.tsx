@@ -10,6 +10,7 @@ import logoImg from "../../../public/images/logo.png";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/services" },
+  { name: "Meet Our Team", href: "/team" },
   { name: "Results", href: "/results" },
   { name: "Blogs", href: "/blog" },
   { name: "About", href: "/about" },
@@ -21,22 +22,22 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-        <div className="flex justify-between h-20 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between gap-3 xl:gap-6">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex shrink-0 items-center">
             <Image
               src={logoImg}
               alt={siteConfig.name}
               width={200}
               height={56}
-              className="h-10 sm:h-14 w-auto theme-logo"
+              className="h-auto w-36 sm:w-40 theme-logo"
               priority
             />
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex space-x-8 items-center">
+          <div className="hidden xl:flex items-center gap-5 whitespace-nowrap">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -48,13 +49,13 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center gap-3">
-            <ThemeToggle />
+          <div className="hidden xl:flex shrink-0 items-center gap-3 whitespace-nowrap">
+            <ThemeToggle compact />
              <Link
               href="/jira"
               className="bg-secondary/80 hover:bg-secondary text-link hover:text-link border border-border/80 text-sm font-semibold px-4 py-2.5 rounded-lg transition-all flex items-center gap-2"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-400 animate-pulse" />
               <span>Jira Workspace</span>
             </Link>
              <Link
@@ -65,21 +66,26 @@ export function Navbar() {
             </Link>
           </div>
 
-          <div className="lg:hidden"><ThemeToggle /></div>
+          <div className="ml-auto flex items-center gap-2 xl:hidden">
+            <ThemeToggle compact />
           {/* Mobile Hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-foreground p-2"
+            className="xl:hidden text-foreground p-2"
+            type="button"
             aria-label="Toggle menu"
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+          </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-card border-b border-border shadow-lg">
+        <div id="mobile-navigation" className="xl:hidden max-h-[calc(100dvh-5rem)] overflow-y-auto bg-card border-b border-border shadow-lg">
           <div className="px-4 pt-2 pb-4 space-y-1">
             {navLinks.map((link) => (
               <Link

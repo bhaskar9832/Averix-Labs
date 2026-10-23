@@ -51,10 +51,21 @@ export default function AboutPage() {
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 font-serif">
             The people behind the work.
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mb-16">
-            Two complementary engineering backgrounds, with a shared interest in products that solve real problems.
-          </p>
-
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+            <div>
+              <p className="text-xl text-muted-foreground max-w-3xl">
+                Two complementary engineering backgrounds, with a shared interest in products that solve real problems.
+              </p>
+            </div>
+            <div>
+              <a 
+                href="/team" 
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white border border-indigo-500/20 text-sm font-semibold transition-all"
+              >
+                View Detailed Profiles & Skills →
+              </a>
+            </div>
+          </div>
           <div className="grid grid-cols-1 gap-12">
             {siteConfig.team.map((member, i) => (
               <div key={i} className="bg-card border border-border rounded-3xl p-8 md:p-12 flex flex-col md:flex-row gap-10">

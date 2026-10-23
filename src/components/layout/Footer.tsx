@@ -40,6 +40,7 @@ export function Footer() {
               <li><Link href="/products" className="hover:text-foreground transition-colors">Products</Link></li>
               <li><Link href="/solutions" className="hover:text-foreground transition-colors">Solutions</Link></li>
               <li><Link href="/technology" className="hover:text-foreground transition-colors">Technology</Link></li>
+              <li><Link href="/team" className="hover:text-foreground transition-colors">Meet Our Team</Link></li>
               <li><Link href="/about" className="hover:text-foreground transition-colors">About</Link></li>
               <li><Link href="/contact" className="hover:text-foreground transition-colors">Contact</Link></li>
             </ul>
