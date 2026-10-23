@@ -17,7 +17,7 @@ async function main() {
       await client.query(readFileSync(new URL(file, directory), 'utf8'));
     }
     await client.query('COMMIT');
-    console.log('Aiven PostgreSQL connected; inquiry and CRM tables are ready.');
+    console.log('Aiven PostgreSQL connected; inquiry, CRM, blog and Jira tables are ready.');
   } finally {
     await client.end();
   }
