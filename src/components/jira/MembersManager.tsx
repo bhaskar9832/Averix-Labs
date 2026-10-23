@@ -55,23 +55,23 @@ export function MembersManager() {
   };
 
   return (
-    <div className="flex-1 p-8 overflow-y-auto bg-[#0a0b10]">
+    <div className="flex-1 p-8 overflow-y-auto bg-background">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-zinc-800">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border">
           <div>
-            <div className="flex items-center gap-2 text-xs text-zinc-400 mb-1">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
               <span>{activeProject.name}</span>
               <span>/</span>
-              <span className="text-zinc-200 font-semibold">Team & People</span>
+              <span className="text-foreground font-semibold">Team & People</span>
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-foreground tracking-tight flex items-center gap-2">
               <span>Project Members & Collaborators</span>
-              <span className="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+              <span className="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-indigo-500/10 text-link border border-indigo-500/20">
                 {members.length} members
               </span>
             </h1>
-            <p className="text-xs text-zinc-400 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               Manage engineering team members, assign ticket owners, and calibrate project roles.
             </p>
           </div>
@@ -98,44 +98,44 @@ export function MembersManager() {
             return (
               <div
                 key={member.id}
-                className="bg-[#12141e] border border-zinc-800/80 hover:border-zinc-700 rounded-xl p-5 shadow-sm transition-all flex flex-col justify-between"
+                className="bg-secondary border border-border/80 hover:border-border rounded-xl p-5 shadow-sm transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-start gap-3.5 mb-4">
                     <img
                       src={member.avatar}
                       alt={member.name}
-                      className="w-12 h-12 rounded-xl object-cover ring-2 ring-zinc-700/60 shrink-0"
+                      className="w-12 h-12 rounded-xl object-cover ring-2 ring-border/60 shrink-0"
                     />
                     <div className="overflow-hidden">
-                      <h3 className="font-semibold text-sm text-white truncate">{member.name}</h3>
-                      <p className="text-xs text-indigo-400 font-medium truncate">{member.role}</p>
-                      <p className="text-[11px] text-zinc-500 truncate flex items-center gap-1 mt-0.5">
+                      <h3 className="font-semibold text-sm text-foreground truncate">{member.name}</h3>
+                      <p className="text-xs text-link font-medium truncate">{member.role}</p>
+                      <p className="text-[11px] text-muted-foreground truncate flex items-center gap-1 mt-0.5">
                         <Mail className="w-3 h-3" />
                         <span>{member.email}</span>
                       </p>
                     </div>
                   </div>
 
-                  <div className="bg-[#181a28] rounded-lg p-2.5 text-xs space-y-1.5 border border-zinc-800/60 mb-4">
-                    <div className="flex justify-between text-zinc-400 text-[11px]">
+                  <div className="bg-secondary rounded-lg p-2.5 text-xs space-y-1.5 border border-border/60 mb-4">
+                    <div className="flex justify-between text-muted-foreground text-[11px]">
                       <span>Department:</span>
-                      <span className="font-semibold text-zinc-300">{member.department}</span>
+                      <span className="font-semibold text-muted-foreground">{member.department}</span>
                     </div>
-                    <div className="flex justify-between text-zinc-400 text-[11px]">
+                    <div className="flex justify-between text-muted-foreground text-[11px]">
                       <span>Active Tickets:</span>
-                      <span className="font-semibold text-indigo-400 font-mono">{assignedCount} assigned</span>
+                      <span className="font-semibold text-link font-mono">{assignedCount} assigned</span>
                     </div>
-                    <div className="flex justify-between text-zinc-400 text-[11px]">
+                    <div className="flex justify-between text-muted-foreground text-[11px]">
                       <span>Completed:</span>
-                      <span className="font-semibold text-emerald-400 font-mono">{completedCount} resolved</span>
+                      <span className="font-semibold text-success font-mono">{completedCount} resolved</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-zinc-800/60 text-[11px]">
-                  <span className="text-zinc-500 font-medium">Verified Averix ID</span>
-                  <span className="flex items-center gap-1 text-emerald-400 font-semibold">
+                <div className="flex items-center justify-between pt-3 border-t border-border/60 text-[11px]">
+                  <span className="text-muted-foreground font-medium">Verified Averix ID</span>
+                  <span className="flex items-center gap-1 text-success font-semibold">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Active</span>
                   </span>
@@ -150,17 +150,17 @@ export function MembersManager() {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
           <div 
-            className="w-full max-w-md bg-[#14161f] border border-zinc-700 rounded-xl shadow-2xl p-6"
+            className="w-full max-w-md bg-secondary border border-border rounded-xl shadow-2xl p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-4 border-b border-zinc-800 mb-4">
-              <h2 className="text-base font-semibold text-white flex items-center gap-2">
-                <UserPlus className="w-4 h-4 text-indigo-400" />
+            <div className="flex items-center justify-between pb-4 border-b border-border mb-4">
+              <h2 className="text-base font-semibold text-foreground flex items-center gap-2">
+                <UserPlus className="w-4 h-4 text-link" />
                 <span>Invite / Add Team Member</span>
               </h2>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-zinc-400 hover:text-white p-1 rounded-md"
+                className="text-muted-foreground hover:text-foreground p-1 rounded-md"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -168,36 +168,36 @@ export function MembersManager() {
 
             <form onSubmit={handleCreateMember} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">Full Name</label>
+                <label className="block text-xs font-semibold text-muted-foreground mb-1">Full Name</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Priya Sharma"
-                  className="w-full bg-[#1b1e2a] border border-zinc-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-muted border border-border rounded-lg px-3 py-2 text-xs text-foreground focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">Email Address</label>
+                <label className="block text-xs font-semibold text-muted-foreground mb-1">Email Address</label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="priya@averixlabs.com"
-                  className="w-full bg-[#1b1e2a] border border-zinc-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-muted border border-border rounded-lg px-3 py-2 text-xs text-foreground focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">Role</label>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1">Role</label>
                   <select
                     value={role}
                     onChange={(e) => setRole(e.target.value as ProjectMember['role'])}
-                    className="w-full bg-[#1b1e2a] border border-zinc-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-muted border border-border rounded-lg px-3 py-2 text-xs text-foreground focus:outline-none focus:border-indigo-500"
                   >
                     <option value="Senior Engineer">Senior Engineer</option>
                     <option value="Frontend Dev">Frontend Dev</option>
@@ -210,19 +210,19 @@ export function MembersManager() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 mb-1">Department</label>
+                  <label className="block text-xs font-semibold text-muted-foreground mb-1">Department</label>
                   <input
                     type="text"
                     value={department}
                     onChange={(e) => setDepartment(e.target.value)}
                     placeholder="Engineering"
-                    className="w-full bg-[#1b1e2a] border border-zinc-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-muted border border-border rounded-lg px-3 py-2 text-xs text-foreground focus:outline-none focus:border-indigo-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                <label className="block text-xs font-semibold text-muted-foreground mb-1">
                   Avatar Image URL (Optional)
                 </label>
                 <input
@@ -230,15 +230,15 @@ export function MembersManager() {
                   value={avatar}
                   onChange={(e) => setAvatar(e.target.value)}
                   placeholder="https://... (Leave blank for auto avatar)"
-                  className="w-full bg-[#1b1e2a] border border-zinc-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-muted border border-border rounded-lg px-3 py-2 text-xs text-foreground focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
-              <div className="pt-4 border-t border-zinc-800 flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-border flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-lg bg-zinc-800 text-zinc-300 text-xs font-medium"
+                  className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground text-xs font-medium"
                 >
                   Cancel
                 </button>

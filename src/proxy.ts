@@ -15,7 +15,7 @@ function checkRateLimit(ip: string, maxRequests = 120, windowMs = 60000) {
   return { allowed: client.count <= maxRequests, remaining: Math.max(0, maxRequests - client.count) };
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const url = request.nextUrl.clone();
   const host = request.headers.get('host') || '';
   const pathname = url.pathname;
@@ -102,7 +102,7 @@ export async function middleware(request: NextRequest) {
   // 4. Pass request with Gateway Security & CORS Headers
   const response = NextResponse.next();
   response.headers.set('X-Averix-Gateway', 'active');
-  response.headers.set('X-Gateway-Engine', 'NextJS-Edge-Proxy-v2.6');
+  response.headers.set('X-Gateway-Engine', 'NextJS-Node-Proxy');
   if (pathname.startsWith('/api')) {
     response.headers.set('Access-Control-Allow-Origin', '*');
   }

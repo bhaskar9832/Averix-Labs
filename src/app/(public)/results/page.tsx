@@ -28,7 +28,7 @@ const caseStudies = [
     ],
     duration: "6 months",
     color: "border-orange-500/30 hover:border-orange-500/60",
-    accent: "text-orange-400",
+    accent: "text-warning",
   },
   {
     badge: "LOCAL BUSINESS",
@@ -43,7 +43,7 @@ const caseStudies = [
     ],
     duration: "3 months",
     color: "border-green-500/30 hover:border-green-500/60",
-    accent: "text-green-400",
+    accent: "text-success",
   },
   {
     badge: "SAAS STARTUP",
@@ -58,7 +58,7 @@ const caseStudies = [
     ],
     duration: "8 weeks",
     color: "border-blue-500/30 hover:border-blue-500/60",
-    accent: "text-blue-400",
+    accent: "text-link",
   },
   {
     badge: "REAL ESTATE",
@@ -73,7 +73,7 @@ const caseStudies = [
     ],
     duration: "4 months",
     color: "border-violet-500/30 hover:border-violet-500/60",
-    accent: "text-violet-400",
+    accent: "text-link",
   },
   {
     badge: "HEALTHCARE",
@@ -88,7 +88,7 @@ const caseStudies = [
     ],
     duration: "5 months",
     color: "border-teal-500/30 hover:border-teal-500/60",
-    accent: "text-teal-400",
+    accent: "text-success",
   },
   {
     badge: "MANUFACTURING",
@@ -103,7 +103,7 @@ const caseStudies = [
     ],
     duration: "5 months",
     color: "border-amber-500/30 hover:border-amber-500/60",
-    accent: "text-amber-400",
+    accent: "text-warning",
   },
 ];
 
@@ -130,36 +130,36 @@ const testimonials = [
 
 export default function ResultsPage() {
   return (
-    <div className="min-h-screen bg-[#050505] pt-32 pb-24 selection:bg-[#4f46e5] selection:text-white">
+    <div className="min-h-screen bg-background pt-32 pb-24 selection:bg-[#4f46e5] selection:text-white">
       {/* Hero */}
-      <div className="px-6 md:px-12 lg:px-20 pb-24 border-b border-[#262626]">
+      <div className="px-6 md:px-12 lg:px-20 pb-24 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">RESULTS</div>
-          <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 font-serif leading-tight">
+          <h1 className="text-4xl md:text-7xl font-bold text-foreground mb-6 font-serif leading-tight">
             Numbers don&apos;t lie.
           </h1>
-          <p className="text-xl text-[#94a3b8] max-w-3xl leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">
             Real outcomes for real businesses. Every stat below comes from actual client work — no projections, no estimates, no fluff.
           </p>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="px-6 md:px-12 lg:px-20 py-24 border-b border-[#262626]">
+      <div className="px-6 md:px-12 lg:px-20 py-24 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-12 uppercase tracking-widest">KEY METRICS</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {stats.map((stat, i) => (
               <div
                 key={i}
-                className="bg-[#0a0a0a] border border-[#262626] hover:border-[#4f46e5]/40 rounded-2xl p-8 group transition-all duration-300 relative overflow-hidden"
+                className="bg-card border border-border hover:border-[#4f46e5]/40 rounded-2xl p-8 group transition-all duration-300 relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#4f46e5]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
                 <div className="relative z-10">
                   <div className="text-3xl mb-4">{stat.icon}</div>
                   <div className="text-5xl md:text-6xl font-bold text-[#4f46e5] font-serif mb-2">{stat.value}</div>
-                  <div className="text-white font-bold text-lg mb-3">{stat.label}</div>
-                  <p className="text-[#64748b] text-sm leading-relaxed">{stat.desc}</p>
+                  <div className="text-foreground font-bold text-lg mb-3">{stat.label}</div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{stat.desc}</p>
                 </div>
               </div>
             ))}
@@ -168,13 +168,13 @@ export default function ResultsPage() {
       </div>
 
       {/* Case Studies */}
-      <div className="px-6 md:px-12 lg:px-20 py-24 border-b border-[#262626]">
+      <div className="px-6 md:px-12 lg:px-20 py-24 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">CASE STUDIES</div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 font-serif">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6 font-serif">
             Deep dives into the work.
           </h2>
-          <p className="text-xl text-[#94a3b8] max-w-3xl mb-16 leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mb-16 leading-relaxed">
             How we helped businesses solve real problems and achieve extraordinary outcomes.
           </p>
 
@@ -182,39 +182,39 @@ export default function ResultsPage() {
             {caseStudies.map((cs, i) => (
               <div
                 key={i}
-                className={`bg-[#0a0a0a] border ${cs.color} rounded-2xl p-8 md:p-10 transition-all duration-300`}
+                className={`bg-card border ${cs.color} rounded-2xl p-8 md:p-10 transition-all duration-300`}
               >
                 <div className="flex flex-wrap items-center gap-3 mb-6">
-                  <span className={`text-xs font-bold ${cs.accent} bg-[#121212] border border-[#262626] px-3 py-1 rounded-full uppercase tracking-widest`}>
+                  <span className={`text-xs font-bold ${cs.accent} bg-secondary border border-border px-3 py-1 rounded-full uppercase tracking-widest`}>
                     {cs.badge}
                   </span>
-                  <span className="text-xs font-medium text-[#64748b] bg-[#121212] border border-[#262626] px-3 py-1 rounded-full">
+                  <span className="text-xs font-medium text-muted-foreground bg-secondary border border-border px-3 py-1 rounded-full">
                     {cs.tag}
                   </span>
-                  <span className="text-xs text-[#64748b] ml-auto">{cs.duration}</span>
+                  <span className="text-xs text-muted-foreground ml-auto">{cs.duration}</span>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-8 font-serif leading-snug">
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-8 font-serif leading-snug">
                   {cs.title}
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                   <div>
-                    <div className="text-xs font-bold text-[#64748b] mb-2 uppercase tracking-widest">THE PROBLEM</div>
-                    <p className="text-[#94a3b8] leading-relaxed">{cs.problem}</p>
+                    <div className="text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest">THE PROBLEM</div>
+                    <p className="text-muted-foreground leading-relaxed">{cs.problem}</p>
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-[#64748b] mb-2 uppercase tracking-widest">THE SOLUTION</div>
-                    <p className="text-[#94a3b8] leading-relaxed">{cs.solution}</p>
+                    <div className="text-xs font-bold text-muted-foreground mb-2 uppercase tracking-widest">THE SOLUTION</div>
+                    <p className="text-muted-foreground leading-relaxed">{cs.solution}</p>
                   </div>
                 </div>
 
                 {/* Results chips */}
-                <div className="flex flex-wrap gap-4 pt-6 border-t border-[#262626]">
+                <div className="flex flex-wrap gap-4 pt-6 border-t border-border">
                   {cs.results.map((r, j) => (
-                    <div key={j} className="bg-[#121212] border border-[#262626] rounded-xl px-5 py-3 text-center">
+                    <div key={j} className="bg-secondary border border-border rounded-xl px-5 py-3 text-center">
                       <div className={`text-2xl font-bold ${cs.accent} font-serif`}>{r.metric}</div>
-                      <div className="text-xs text-[#64748b] mt-1 font-medium">{r.label}</div>
+                      <div className="text-xs text-muted-foreground mt-1 font-medium">{r.label}</div>
                     </div>
                   ))}
                 </div>
@@ -225,24 +225,24 @@ export default function ResultsPage() {
       </div>
 
       {/* Testimonials */}
-      <div className="px-6 md:px-12 lg:px-20 py-24 border-b border-[#262626]">
+      <div className="px-6 md:px-12 lg:px-20 py-24 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">TESTIMONIALS</div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-16 font-serif">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-16 font-serif">
             What our clients say.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
-              <div key={i} className="bg-[#0a0a0a] border border-[#262626] hover:border-[#4f46e5]/30 rounded-2xl p-8 transition-all duration-300 flex flex-col">
+              <div key={i} className="bg-card border border-border hover:border-[#4f46e5]/30 rounded-2xl p-8 transition-all duration-300 flex flex-col">
                 <div className="text-[#4f46e5] text-4xl font-serif mb-4">&ldquo;</div>
-                <p className="text-[#94a3b8] leading-relaxed mb-8 flex-grow italic">{t.quote}</p>
-                <div className="flex items-center gap-4 pt-4 border-t border-[#262626]">
+                <p className="text-muted-foreground leading-relaxed mb-8 flex-grow italic">{t.quote}</p>
+                <div className="flex items-center gap-4 pt-4 border-t border-border">
                   <div className="w-10 h-10 rounded-full bg-[#4f46e5]/20 border border-[#4f46e5]/30 flex items-center justify-center text-sm font-bold text-[#4f46e5]">
                     {t.initials}
                   </div>
                   <div>
-                    <div className="text-white font-bold text-sm">{t.name}</div>
-                    <div className="text-[#64748b] text-xs">{t.role}</div>
+                    <div className="text-foreground font-bold text-sm">{t.name}</div>
+                    <div className="text-muted-foreground text-xs">{t.role}</div>
                   </div>
                 </div>
               </div>
@@ -255,10 +255,10 @@ export default function ResultsPage() {
       <div className="px-6 md:px-12 lg:px-20 py-24">
         <div className="max-w-5xl mx-auto text-center">
           <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">YOUR TURN</div>
-          <h2 className="text-3xl md:text-6xl font-bold text-white mb-6 font-serif">
+          <h2 className="text-3xl md:text-6xl font-bold text-foreground mb-6 font-serif">
             Ready to become our next success story?
           </h2>
-          <p className="text-xl text-[#94a3b8] mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
             Every case study above started with a single conversation. Let&apos;s have ours.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -270,7 +270,7 @@ export default function ResultsPage() {
             </Link>
             <Link
               href="/services"
-              className="bg-transparent border border-[#262626] hover:border-[#4f46e5]/50 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-center"
+              className="bg-transparent border border-border hover:border-[#4f46e5]/50 text-foreground font-semibold px-8 py-4 rounded-xl transition-colors text-center"
             >
               Browse Services
             </Link>

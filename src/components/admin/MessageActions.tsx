@@ -49,21 +49,21 @@ export function MessageActions({ messageId, currentStatus }: { messageId: string
         <button
           onClick={markRead}
           disabled={loading}
-          className="bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/20 px-3 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1.5 disabled:opacity-50"
+          className="bg-indigo-500/10 hover:bg-indigo-500/20 text-link border border-indigo-500/20 px-3 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1.5 disabled:opacity-50"
         >
           <Check className="w-3 h-3" /> Mark read
         </button>
       )}
       <button
         onClick={replyViaEmail}
-        className="bg-white/5 hover:bg-white/10 text-white/60 px-3 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1.5"
+        className="bg-foreground/5 hover:bg-foreground/10 text-muted-foreground px-3 py-1 rounded text-xs font-medium transition-colors flex items-center gap-1.5"
       >
         <Mail className="w-3 h-3" /> Reply
       </button>
       <button
         onClick={deleteMsg}
         disabled={loading}
-        className="bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1 rounded text-xs font-medium transition-colors disabled:opacity-50"
+        className="bg-red-500/10 hover:bg-red-500/20 text-danger px-3 py-1 rounded text-xs font-medium transition-colors disabled:opacity-50"
       >
         Delete
       </button>

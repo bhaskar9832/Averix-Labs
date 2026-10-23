@@ -8,10 +8,10 @@ export function Logo({ className = "" }: { className?: string }) {
         alt="Averix Labs" 
         width={200} 
         height={56} 
-        className="h-14 w-auto brightness-0 invert"
+        className="h-14 w-auto theme-logo"
         priority
       />
-      <span className="text-[11px] text-[#64748b] font-bold tracking-[0.25em] uppercase pl-1.5">
+      <span className="text-[11px] text-muted-foreground font-bold tracking-[0.25em] uppercase pl-1.5">
         Control Plane
       </span>
     </div>

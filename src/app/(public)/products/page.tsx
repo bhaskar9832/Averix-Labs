@@ -1,36 +1,36 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import Image from "next/image";
 import { products } from "@/lib/data";
 
-export const metadata = {
-  title: "Products — Averix Labs",
-  description: "An ecosystem of premium platforms engineered, maintained, and grown by Averix Labs.",
-};
+
+export const metadata = pageMetadata("Software Portfolio: Web, Mobile & AI Projects", "Explore Averix Labs projects including Rent Easy, StudyAI, GasFlow and MyBuddy. See how we build marketplaces, AI tools and operations software.", "/products");
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen bg-[#050505] pt-32 pb-24 px-6 md:px-12 lg:px-20">
+    <div className="min-h-screen bg-background pt-32 pb-24 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         <div className="text-sm font-bold text-[#4f46e5] mb-4 uppercase tracking-widest">04 / PORTFOLIO</div>
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
+        <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 font-serif">
           Selected product work.
         </h1>
-        <p className="text-xl text-[#94a3b8] max-w-3xl mb-16">
+        <p className="text-xl text-muted-foreground max-w-3xl mb-16">
           These projects show range across marketplaces, AI learning, business operations, storytelling, and product systems design.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {products.map((product) => (
             <Link key={product.slug} href={`/products/${product.slug}`} className="group block h-full">
-              <div className="bg-[#0a0a0a] border border-[#262626] rounded-2xl flex flex-col h-full group-hover:border-[#4f46e5]/50 transition-colors relative overflow-hidden">
+              <div className="bg-card border border-border rounded-2xl flex flex-col h-full group-hover:border-[#4f46e5]/50 transition-colors relative overflow-hidden">
                 
                 {/* Image Section */}
-                <div className="h-64 md:h-80 w-full bg-[#121212] relative overflow-hidden flex items-center justify-center border-b border-[#262626]">
+                <div className="h-64 md:h-80 w-full bg-secondary relative overflow-hidden flex items-center justify-center border-b border-border">
                   {product.interfaceImage ? (
                     <Image 
                       src={product.interfaceImage} 
                       alt={product.name} 
-                      fill 
+                      fill
+                      sizes="(min-width: 1280px) 560px, (min-width: 1024px) 50vw, 100vw"
                       quality={100}
                       className="object-cover group-hover:scale-105 transition-all duration-700 contrast-[1.03] saturate-[1.05] brightness-[1.02]" 
                       style={{ imageRendering: 'crisp-edges' }}
@@ -39,7 +39,7 @@ export default function ProductsPage() {
                     <div className="text-[#4f46e5] font-mono text-sm opacity-50">{product.slug.toUpperCase()}</div>
                   )}
                   {/* Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] to-transparent opacity-50"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-50"></div>
                 </div>
 
                 {/* Content Section */}
@@ -47,22 +47,22 @@ export default function ProductsPage() {
                   {/* Status Badge */}
                   <div className="absolute top-8 right-8">
                     <span className={`text-[10px] font-bold px-3 py-1 rounded border uppercase tracking-wider
-                      ${product.status === 'Active' ? 'text-green-400 bg-green-400/10 border-green-400/20' : 
-                        product.status === 'Beta' ? 'text-blue-400 bg-blue-400/10 border-blue-400/20' :
-                        product.status === 'Coming Soon' ? 'text-amber-400 bg-amber-400/10 border-amber-400/20' :
-                        product.status === 'Under Deployment' ? 'text-orange-400 bg-orange-400/10 border-orange-400/20' :
-                        'text-purple-400 bg-purple-400/10 border-purple-400/20'}`}>
+                      ${product.status === 'Active' ? 'text-success bg-green-400/10 border-green-400/20' :
+                        product.status === 'Beta' ? 'text-link bg-blue-400/10 border-blue-400/20' :
+                        product.status === 'Coming Soon' ? 'text-warning bg-amber-400/10 border-amber-400/20' :
+                        product.status === 'Under Deployment' ? 'text-warning bg-orange-400/10 border-orange-400/20' :
+                        'text-link bg-purple-400/10 border-purple-400/20'}`}>
                       {product.status}
                     </span>
                   </div>
 
                   <div className="text-xs font-bold text-[#4f46e5] mb-2 uppercase tracking-widest">{product.category}</div>
-                  <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-[#4f46e5] transition-colors">{product.name}</h2>
-                  <p className="text-[#94a3b8] mb-8 text-lg flex-grow leading-relaxed">{product.description}</p>
+                  <h2 className="text-3xl font-bold text-foreground mb-4 group-hover:text-[#4f46e5] transition-colors">{product.name}</h2>
+                  <p className="text-muted-foreground mb-8 text-lg flex-grow leading-relaxed">{product.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {product.technology.slice(0, 3).map((tech, i) => (
-                      <span key={i} className="inline-block bg-[#121212] border border-[#262626] text-[#64748b] text-xs font-semibold px-3 py-1 rounded-full">
+                      <span key={i} className="inline-block bg-secondary border border-border text-muted-foreground text-xs font-semibold px-3 py-1 rounded-full">
                         {tech}
                       </span>
                     ))}

@@ -63,25 +63,25 @@ export function SessionsManagerClient({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-foreground/5">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-mono font-semibold border border-indigo-500/20">
+            <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-link text-xs font-mono font-semibold border border-indigo-500/20">
               Security • Active Sessions & Device Management
             </span>
           </div>
-          <h1 className="text-2xl font-bold text-white tracking-tight">
+          <h1 className="text-2xl font-bold text-foreground tracking-tight">
             Active Administrator Sessions
           </h1>
-          <p className="text-xs text-white/50 mt-1">
-            Logged in as <span className="text-white font-mono">{currentUserEmail}</span>. Inspect active device sessions or revoke access immediately.
+          <p className="text-xs text-muted-foreground mt-1">
+            Logged in as <span className="text-foreground font-mono">{currentUserEmail}</span>. Inspect active device sessions or revoke access immediately.
           </p>
         </div>
 
         <button
           onClick={handleRevokeAll}
           disabled={loading}
-          className="flex items-center gap-2 px-4 py-2 bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 rounded-xl text-xs font-bold border border-rose-500/30 transition-all cursor-pointer self-start sm:self-auto"
+          className="flex items-center gap-2 px-4 py-2 bg-rose-600/20 hover:bg-rose-600/30 text-danger rounded-xl text-xs font-bold border border-rose-500/30 transition-all cursor-pointer self-start sm:self-auto"
         >
           <Power className="w-3.5 h-3.5" />
           <span>Logout from all devices</span>
@@ -89,8 +89,8 @@ export function SessionsManagerClient({
       </div>
 
       {message && (
-        <div className="flex items-center gap-2 p-3.5 text-xs text-emerald-300 bg-emerald-950/30 border border-emerald-500/30 rounded-xl">
-          <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+        <div className="flex items-center gap-2 p-3.5 text-xs text-success bg-emerald-950/30 border border-emerald-500/30 rounded-xl">
+          <CheckCircle2 className="w-4 h-4 shrink-0 text-success" />
           <p>{message}</p>
         </div>
       )}
@@ -109,29 +109,29 @@ export function SessionsManagerClient({
                 s.isCurrent
                   ? 'bg-indigo-950/20 border-indigo-500/40'
                   : s.isActive
-                  ? 'bg-[#11131a] border-white/10'
-                  : 'bg-black/30 border-white/5 opacity-50'
+                  ? 'bg-card border-foreground/10'
+                  : 'bg-black/30 border-foreground/5 opacity-50'
               }`}
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <div
                     className={`p-2.5 rounded-xl ${
-                      s.isCurrent ? 'bg-indigo-600 text-white' : 'bg-white/5 text-white/70'
+                      s.isCurrent ? 'bg-indigo-600 text-white' : 'bg-foreground/5 text-foreground/70'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-sm text-white flex items-center gap-2">
+                    <h4 className="font-bold text-sm text-foreground flex items-center gap-2">
                       <span>{s.device}</span>
                       {s.isCurrent && (
-                        <span className="px-1.5 py-0.5 rounded bg-indigo-500/30 text-indigo-300 text-[10px] font-mono">
+                        <span className="px-1.5 py-0.5 rounded bg-indigo-500/30 text-link text-[10px] font-mono">
                           THIS DEVICE
                         </span>
                       )}
                     </h4>
-                    <p className="text-xs text-white/40 font-mono mt-0.5">
+                    <p className="text-xs text-muted-foreground font-mono mt-0.5">
                       {s.ipAddress} • {s.location}
                     </p>
                   </div>
@@ -140,17 +140,17 @@ export function SessionsManagerClient({
                 <span
                   className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
                     s.isActive
-                      ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                      : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+                      ? 'bg-emerald-500/10 text-success border-emerald-500/20'
+                      : 'bg-rose-500/10 text-danger border-rose-500/20'
                   }`}
                 >
                   {s.isActive ? 'ACTIVE' : 'REVOKED'}
                 </span>
               </div>
 
-              <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-white/50">
+              <div className="pt-3 border-t border-foreground/5 flex items-center justify-between text-[11px] text-muted-foreground">
                 <div>
-                  <span className="block text-white/30 text-[10px] uppercase font-bold">Last Activity</span>
+                  <span className="block text-muted-foreground text-[10px] uppercase font-bold">Last Activity</span>
                   <span>{s.lastActivityAt ? new Date(s.lastActivityAt).toLocaleTimeString() : 'Just now'}</span>
                 </div>
 
@@ -158,7 +158,7 @@ export function SessionsManagerClient({
                   <button
                     onClick={() => handleRevoke(s.sessionId)}
                     disabled={loading}
-                    className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-rose-600/20 hover:text-rose-300 text-white/70 text-xs font-semibold border border-white/10 transition-colors cursor-pointer"
+                    className="px-2.5 py-1 rounded-lg bg-foreground/5 hover:bg-rose-600/20 hover:text-danger text-foreground/70 text-xs font-semibold border border-foreground/10 transition-colors cursor-pointer"
                   >
                     Revoke
                   </button>

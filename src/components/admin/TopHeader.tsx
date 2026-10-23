@@ -1,5 +1,6 @@
 'use client'
 
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { Search, Bell } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -42,31 +43,32 @@ export function TopHeader() {
   };
 
   return (
-    <header className="h-16 border-b border-white/5 bg-[#0e0e11] flex items-center justify-between px-6 shrink-0">
+    <header className="h-16 border-b border-foreground/5 bg-card flex items-center justify-between px-6 shrink-0">
       <form onSubmit={handleSearchSubmit} className="flex-1 max-w-xl">
         <div className="relative group">
-          <Search className="w-4 h-4 text-white/40 absolute left-3 top-1/2 -translate-y-1/2 group-focus-within:text-indigo-400 transition-colors" />
+          <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2 group-focus-within:text-link transition-colors" />
           <input 
             type="text" 
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search leads, customers, messages... (Press Enter)" 
-            className="w-full bg-white/5 border border-white/10 rounded-md pl-10 pr-4 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500/50 transition-colors placeholder:text-white/30"
+            className="w-full bg-foreground/5 border border-foreground/10 rounded-md pl-10 pr-4 py-1.5 text-sm text-foreground focus:outline-none focus:border-indigo-500/50 transition-colors placeholder:text-muted-foreground"
           />
         </div>
       </form>
       
       <div className="flex items-center gap-4 pl-4">
-        <div className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+        <ThemeToggle compact />
+        <div className="flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-success text-xs font-medium">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
           Production
         </div>
-        <div className="text-xs text-white/40 font-mono font-medium hidden sm:block">
+        <div className="text-xs text-muted-foreground font-mono font-medium hidden sm:block">
           {time || "UTC Live"}
         </div>
         <Link 
           href="/admin/messages" 
-          className="relative p-2 text-white/40 hover:text-white transition-colors"
+          className="relative p-2 text-muted-foreground hover:text-foreground transition-colors"
           title="Messages / Notifications"
         >
           <Bell className="w-4 h-4" />

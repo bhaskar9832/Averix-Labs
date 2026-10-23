@@ -16,11 +16,11 @@ import { IssueStatus } from '@/lib/jira/types';
 import { IssueCard } from './IssueCard';
 
 const COLUMNS: { id: IssueStatus; title: string; countColor: string; bgBadge: string }[] = [
-  { id: 'backlog', title: 'BACKLOG', countColor: 'text-zinc-400', bgBadge: 'bg-zinc-800' },
-  { id: 'todo', title: 'TO DO', countColor: 'text-blue-400', bgBadge: 'bg-blue-950/60' },
-  { id: 'in_progress', title: 'IN PROGRESS', countColor: 'text-indigo-400', bgBadge: 'bg-indigo-950/60' },
-  { id: 'in_review', title: 'IN REVIEW', countColor: 'text-amber-400', bgBadge: 'bg-amber-950/60' },
-  { id: 'done', title: 'DONE', countColor: 'text-emerald-400', bgBadge: 'bg-emerald-950/60' },
+  { id: 'backlog', title: 'BACKLOG', countColor: 'text-muted-foreground', bgBadge: 'bg-secondary' },
+  { id: 'todo', title: 'TO DO', countColor: 'text-link', bgBadge: 'bg-blue-950/60' },
+  { id: 'in_progress', title: 'IN PROGRESS', countColor: 'text-link', bgBadge: 'bg-indigo-950/60' },
+  { id: 'in_review', title: 'IN REVIEW', countColor: 'text-warning', bgBadge: 'bg-amber-950/60' },
+  { id: 'done', title: 'DONE', countColor: 'text-success', bgBadge: 'bg-emerald-950/60' },
 ];
 
 export function KanbanBoard({ onOpenCreateModal }: { onOpenCreateModal: () => void }) {
@@ -89,20 +89,20 @@ export function KanbanBoard({ onOpenCreateModal }: { onOpenCreateModal: () => vo
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#0a0b10]">
+    <div className="flex-1 flex flex-col h-full overflow-hidden bg-background">
       {/* Board Subheader: Title, Filters & Member quick avatars */}
-      <div className="px-6 py-4 border-b border-zinc-800/80 bg-[#0e1017] flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="px-6 py-4 border-b border-border/80 bg-card flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-zinc-400 mb-1">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
             <span>Projects</span>
             <span>/</span>
             <span>{activeProject.name}</span>
             <span>/</span>
-            <span className="text-zinc-200 font-semibold">Active Kanban</span>
+            <span className="text-foreground font-semibold">Active Kanban</span>
           </div>
-          <h1 className="text-xl font-bold text-white tracking-tight flex items-center gap-2.5">
+          <h1 className="text-xl font-bold text-foreground tracking-tight flex items-center gap-2.5">
             <span>{activeProject.key} Sprint Board</span>
-            <span className="text-xs font-normal px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            <span className="text-xs font-normal px-2 py-0.5 rounded-full bg-indigo-500/10 text-link border border-indigo-500/20">
               Live Flow
             </span>
           </h1>
@@ -117,7 +117,7 @@ export function KanbanBoard({ onOpenCreateModal }: { onOpenCreateModal: () => vo
               className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold border transition-all ${
                 filterAssigneeId === 'all'
                   ? 'bg-indigo-600 text-white border-white z-10 scale-105'
-                  : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:bg-zinc-700'
+                  : 'bg-secondary text-muted-foreground border-border hover:bg-secondary'
               }`}
               title="All Team Members"
             >
@@ -133,7 +133,7 @@ export function KanbanBoard({ onOpenCreateModal }: { onOpenCreateModal: () => vo
                 className={`w-7 h-7 rounded-full object-cover cursor-pointer border transition-all ${
                   filterAssigneeId === m.id
                     ? 'ring-2 ring-indigo-500 scale-110 z-10 border-white'
-                    : 'border-zinc-800 hover:scale-105 hover:z-10 opacity-80 hover:opacity-100'
+                    : 'border-border hover:scale-105 hover:z-10 opacity-80 hover:opacity-100'
                 }`}
               />
             ))}
@@ -143,7 +143,7 @@ export function KanbanBoard({ onOpenCreateModal }: { onOpenCreateModal: () => vo
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="bg-[#141622] border border-zinc-700 rounded-md px-2.5 py-1.5 text-xs text-zinc-300 focus:outline-none focus:border-indigo-500"
+            className="bg-secondary border border-border rounded-md px-2.5 py-1.5 text-xs text-muted-foreground focus:outline-none focus:border-indigo-500"
           >
             <option value="all">All Types</option>
             <option value="task">Tasks</option>
@@ -157,7 +157,7 @@ export function KanbanBoard({ onOpenCreateModal }: { onOpenCreateModal: () => vo
           <select
             value={filterPriority}
             onChange={(e) => setFilterPriority(e.target.value)}
-            className="bg-[#141622] border border-zinc-700 rounded-md px-2.5 py-1.5 text-xs text-zinc-300 focus:outline-none focus:border-indigo-500"
+            className="bg-secondary border border-border rounded-md px-2.5 py-1.5 text-xs text-muted-foreground focus:outline-none focus:border-indigo-500"
           >
             <option value="all">All Priorities</option>
             <option value="highest">Highest</option>
@@ -190,16 +190,16 @@ export function KanbanBoard({ onOpenCreateModal }: { onOpenCreateModal: () => vo
                 onDragOver={(e) => handleDragOver(e, col.id)}
                 onDragLeave={() => handleDragLeave(col.id)}
                 onDrop={(e) => handleDrop(e, col.id)}
-                className={`flex-1 flex flex-col rounded-xl bg-[#0e1017] border transition-all duration-150 ${
+                className={`flex-1 flex flex-col rounded-xl bg-card border transition-all duration-150 ${
                   isTargeted
                     ? 'border-indigo-500 bg-indigo-950/20 ring-2 ring-indigo-500/40 shadow-xl'
-                    : 'border-zinc-800/80 hover:border-zinc-700/60'
+                    : 'border-border/80 hover:border-border/60'
                 }`}
               >
                 {/* Column Header */}
-                <div className="p-3.5 border-b border-zinc-800/60 flex items-center justify-between">
+                <div className="p-3.5 border-b border-border/60 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-zinc-300 tracking-wider">
+                    <span className="text-xs font-bold text-muted-foreground tracking-wider">
                       {col.title}
                     </span>
                     <span
@@ -211,7 +211,7 @@ export function KanbanBoard({ onOpenCreateModal }: { onOpenCreateModal: () => vo
 
                   <button
                     onClick={onOpenCreateModal}
-                    className="p-1 rounded text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors"
+                    className="p-1 rounded text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                     title={`Add ticket to ${col.title}`}
                   >
                     <Plus className="w-3.5 h-3.5" />
@@ -225,11 +225,11 @@ export function KanbanBoard({ onOpenCreateModal }: { onOpenCreateModal: () => vo
                   ))}
 
                   {colIssues.length === 0 && (
-                    <div className="h-32 border border-dashed border-zinc-800/80 rounded-lg flex flex-col items-center justify-center p-4 text-center">
-                      <p className="text-[11px] text-zinc-500 italic">No tickets in this column</p>
+                    <div className="h-32 border border-dashed border-border/80 rounded-lg flex flex-col items-center justify-center p-4 text-center">
+                      <p className="text-[11px] text-muted-foreground italic">No tickets in this column</p>
                       <button
                         onClick={onOpenCreateModal}
-                        className="mt-2 text-[11px] text-indigo-400 hover:text-indigo-300 font-medium"
+                        className="mt-2 text-[11px] text-link hover:text-link font-medium"
                       >
                         + Create ticket
                       </button>

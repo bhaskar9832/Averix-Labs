@@ -1,70 +1,17 @@
 'use server'
 
-import { sql } from '@/lib/db'
+import { saveContact, validateContact } from '@/lib/contact-store.mjs';
 
-export async function submitContact(formData: FormData): Promise<{ success: boolean; error?: string }> {
-  const name = formData.get('name') as string
-  const email = formData.get('email') as string
-  const company = (formData.get('company') as string) || null
-  const project_type = formData.get('project_type') as string
-  const message = formData.get('message') as string
-
-  const first_name = name.split(' ')[0]
-  const last_name = name.split(' ').slice(1).join(' ') || null
-
-  let leadId: string | null = null;
-  let dbSuccess = false;
-
+export async function submitContact(formData: FormData) {
+  const inquiry = validateContact(Object.fromEntries(formData));
+  if (!inquiry) return { error: 'Please check your contact details and message.' };
   try {
-    // Insert lead
-    const leads = await sql`
-      INSERT INTO leads (first_name, last_name, full_name, email, company, project_type, source, status)
-      VALUES (${first_name}, ${last_name}, ${name}, ${email}, ${company}, ${project_type}, 'Contact Form', 'NEW')
-      RETURNING id
-    `
-    if (leads && leads.length > 0) {
-      leadId = leads[0].id
-      dbSuccess = true
-    }
-  } catch(err: any) {
-    console.error('Lead DB error:', err.message || err)
+    await saveContact(inquiry);
+  } catch {
+    console.error('[Averix Labs] Failed to save contact submission');
+    return { error: 'Failed to save your message. Please try again later.' };
   }
-
-  if (leadId) {
-    try {
-      // Insert message
-      await sql`
-        INSERT INTO messages (lead_id, name, email, company, project, message, status)
-        VALUES (${leadId}, ${name}, ${email}, ${company}, ${project_type}, ${message}, 'UNREAD')
-      `
-    } catch(err: any) {
-      console.error('Message DB error:', err.message || err)
-    }
-  }
-
-  // Backup fallback: forward to FormSubmit email delivery if DB or Telegram fails
-  if (!dbSuccess) {
-    try {
-      await fetch("https://formsubmit.co/ajax/averixlabs001@gmail.com", {
-        method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          company: company || 'N/A',
-          project_type,
-          message,
-          _subject: `New Project Inquiry from ${name} (Web Direct)`,
-          _template: "table"
-        })
-      });
-    } catch (fallbackErr: any) {
-      console.error('Fallback email notification error:', fallbackErr.message || fallbackErr);
-    }
-  }
+  const { name, email, company, project_type, message } = inquiry;
 
   // Send Telegram Notification
   const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;

@@ -1,0 +1,102 @@
+name: Vercel CI & Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - dev2
+      - development
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  build-and-deploy:
+    name: Build, Validate & Deploy to Vercel
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Restore Next.js Build Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('src/**/*.[jt]s', 'src/**/*.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+
+      - name: Ensure Aiven Database Schema (if DATABASE_URL secret is configured)
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_CA_CERT: ${{ secrets.DATABASE_CA_CERT }}
+        run: |
+          if [ -n "$DATABASE_URL" ]; then
+            npm run db:setup
+          else
+            echo "Skipping db:setup (DATABASE_URL secret not set in GitHub Actions)."
+          fi
+
+      - name: Next.js Production Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://averixlabs.in' }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+
+      - name: Run ESLint Check (Non-blocking)
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Deploy or Sync with Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_CA_CERT: ${{ secrets.DATABASE_CA_CERT }}
+          EVENT_NAME: ${{ github.event_name }}
+          GIT_REF: ${{ github.ref }}
+        run: |
+          if [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ]; then
+            npm install --global vercel@latest
+            ENV_ARGS=()
+            if [ -n "$DATABASE_URL" ]; then
+              ENV_ARGS+=(--env DATABASE_URL="$DATABASE_URL" --build-env DATABASE_URL="$DATABASE_URL")
+            fi
+            if [ -n "$DATABASE_CA_CERT" ]; then
+              ENV_ARGS+=(--env DATABASE_CA_CERT="$DATABASE_CA_CERT")
+            fi
+            if [ "$EVENT_NAME" != "pull_request" ] && [ "$GIT_REF" = "refs/heads/main" ]; then
+              vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+              vercel build --prod --token="$VERCEL_TOKEN"
+              vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" "${ENV_ARGS[@]}"
+            else
+              vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+              vercel build --token="$VERCEL_TOKEN"
+              vercel deploy --prebuilt --token="$VERCEL_TOKEN" "${ENV_ARGS[@]}"
+            fi
+          elif [ "$EVENT_NAME" != "pull_request" ] && [ "$GIT_REF" = "refs/heads/main" ] && [ -n "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            echo "Triggering Vercel Deploy Hook..."
+            curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
+          else
+            echo "Build validated successfully. Vercel GitHub integration (vercel[bot]) handles automatic deployment."
+            echo "Optional: Set VERCEL_TOKEN + VERCEL_ORG_ID + VERCEL_PROJECT_ID (or VERCEL_DEPLOY_HOOK_URL) in GitHub Secrets to trigger CLI/Hook deployments directly from this workflow."
+          fi

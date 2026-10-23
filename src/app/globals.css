@@ -14,10 +14,20 @@
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-link: var(--link);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
   --radius: var(--radius);
 }
 
-:root {
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --link: #a5b4fc;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #fb7185;
   --background: #050505; /* Deep black/grey */
   --foreground: #f8fafc;
   --primary: #4f46e5; /* Indigo accent */
@@ -44,4 +54,44 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --link: #4338ca;
+  --success: #047857;
+  --warning: #92400e;
+  --danger: #be123c;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --secondary: #eef2f6;
+  --secondary-foreground: #0f172a;
+  --muted: #e2e8f0;
+  --muted-foreground: #475569;
+  --border: #cbd5e1;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+}
+
+.theme-logo { filter: brightness(0) invert(1); }
+[data-theme="light"] .theme-logo { filter: brightness(0); }
+.theme-light-option { display: inline-flex; }
+.theme-dark-option { display: none; }
+[data-theme="light"] .theme-light-option { display: none; }
+[data-theme="light"] .theme-dark-option { display: inline-flex; }
+
+/* Printable documents use a white page in either application theme. */
+.theme-paper {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --secondary: #eef2f6;
+  --muted: #e2e8f0;
+  --muted-foreground: #475569;
+  --border: #cbd5e1;
+  --link: #4338ca;
+  --success: #047857;
+  --warning: #92400e;
+  --danger: #be123c;
 }

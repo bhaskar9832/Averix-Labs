@@ -12,9 +12,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const variantClasses: Record<string, string> = {
   default: "bg-blue-600 hover:bg-blue-700 text-white",
-  outline: "border border-slate-300 hover:border-slate-400 text-slate-700 bg-transparent",
-  ghost: "hover:bg-slate-100 text-slate-700 bg-transparent",
-  secondary: "bg-slate-100 hover:bg-slate-200 text-slate-900",
+  outline: "border border-border hover:border-muted-foreground text-foreground bg-transparent",
+  ghost: "hover:bg-secondary text-foreground bg-transparent",
+  secondary: "bg-secondary hover:bg-muted text-foreground",
 };
 
 const sizeClasses: Record<string, string> = {
